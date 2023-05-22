@@ -15,22 +15,21 @@ QuantReady is an interview preparation platform designed to help students excel 
    - Person A identifies the correct answers to the questions in the question bank.
    - Person B creates a way to match the user input to the correct result and output an appropriate message.
    - Person C creates a way for users to view the correct solution.
+3. **Profile**
+   - The user should be able to create a profile.
 
 ### Standard Requirements (3-7)
 
-1. **User Profile Creation**
-   - Users should be able to create their profiles.
-
-2. **Role-based Access**
+1. **Role-based Access**
    - The platform should support multiple roles such as researchers and quant traders.
 
-3. **View Correct Answers/Solutions**
+2. **View Correct Answers/Solutions**
    - Users should be able to view the correct answers/solutions.
 
-4. **Question History**
+3. **Question History**
    - The platform should display the user's history of attempted and unattempted questions.
 
-5. **Question Grouping**
+4. **Question Grouping**
    - Questions should be grouped based on levels of difficulty and topics.
 
 ### Stretch Requirements (2-3)
@@ -43,6 +42,16 @@ QuantReady is an interview preparation platform designed to help students excel 
 
 3. **Interactive Learning Activities**
    - The platform may include interactive learning activities such as quizzes, mental math puzzles, and timed mock interviews.
+
+## Prototype Sketches
+### Homepage
+![Homepage Hero Image](Prototypes/homepage1.png)
+![Homepage Body Image](Prototypes/homepage2.png)
+![Homepage Footer Image](Prototypes/homepage3.png)
+
+### Questions Page
+![Question List Page ](Prototypes/question1.png)
+![Question Solution Page](Prototypes/question2.png)
 
 ## Getting Started
 

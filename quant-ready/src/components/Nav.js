@@ -45,7 +45,6 @@ function Nav() {
             >
                 QuantReady
             </Typography>
-        
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', flex: 0 }}>
                 <MenuItem component={Link} to="/questions">
                     <Typography sx={{ minWidth: 100, color: "#4f4e4e", fontFamily: 'arial', fontWeight: 800 }}>Questions</Typography>

@@ -1,4 +1,4 @@
-var questions = [
+const questions = [
   {
     id: 1,
     questionName: "Tennis game",

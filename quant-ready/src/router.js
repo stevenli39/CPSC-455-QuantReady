@@ -4,11 +4,12 @@ import {
     Routes
 } from "react-router-dom";
 import Login from "./pages/Login";
+import HomePage from "./pages/HomePage";
 
 function Router() {
     return (
       <Routes>
-        <Route path="/" element={<div>Hello World!</div> }/>
+        <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />}/>
         <Route path="/questions" element={<div>Questions</div>} />
         {/* Add your routes here */}

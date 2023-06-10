@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/questionsList.css";
 import { Search } from "@mui/icons-material";
-import { makeStyles } from "@mui/styles";
 import {
   TextField,
   Card,

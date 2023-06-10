@@ -1,5 +1,6 @@
 import * as React from "react";
 import QuestionsList from "./components/QuestionsPage";
+import questions from "./mock_data/questions";
 import { Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import HomePage from "./pages/HomePage";

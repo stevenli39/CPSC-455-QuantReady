@@ -7,6 +7,7 @@ import HomePage from "./pages/HomePage";
 import About from "./pages/About"
 import QuestionHistory from "./pages/QuestionHistory";
 
+
 function Router() {
   return (
     <Routes>
@@ -18,6 +19,7 @@ function Router() {
       />
         <Route path="/about" element={<About/>}/>
         <Route path="/history" element={<QuestionHistory />} />
+
     </Routes>
   );
 }

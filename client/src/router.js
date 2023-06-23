@@ -4,7 +4,7 @@ import questions from "./mock_data/questions";
 import { Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import HomePage from "./pages/HomePage";
-import About from "./pages/About"
+import About from "./pages/About";
 
 function Router() {
   return (

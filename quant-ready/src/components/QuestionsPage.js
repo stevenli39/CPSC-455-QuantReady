@@ -8,7 +8,6 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import Scratchpad from "./Scratchpad";
 
 function QuestionsList({ questions }) {
   const [selectedQuestion, setSelectedQuestion] = useState(null);
@@ -125,8 +124,6 @@ function QuestionsList({ questions }) {
           </form>
         </CardContent>
       </Card>
-
-      <Scratchpad/>
     </div>
   );
 }

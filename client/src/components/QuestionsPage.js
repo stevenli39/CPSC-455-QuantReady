@@ -9,6 +9,12 @@ import {
   Button,
 } from "@mui/material";
 
+import Scratchpad from "./Scratchpad";
+import { Provider } from 'react-redux';
+import store from '../redux/store';
+
+
+
 function QuestionsList({ questions }) {
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [questionsList, setQuestionsList] = useState([]);
@@ -124,6 +130,9 @@ function QuestionsList({ questions }) {
           </form>
         </CardContent>
       </Card>
+      
+      <Scratchpad/>
+      
     </div>
   );
 }

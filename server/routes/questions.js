@@ -42,8 +42,8 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/:questionId", function (req, res, next) {
-  const foundQuestion = users.find(
-    (question) => question.id === req.params.questionId
+  const foundQuestion = questions.find(
+    (question) => question.id === parseInt(req.params.questionId)
   );
 
   if (!foundQuestion)
@@ -53,8 +53,8 @@ router.get("/:questionId", function (req, res, next) {
 });
 
 router.get("/:questionId/answer", function (req, res, next) {
-  const foundQuestion = users.find(
-    (question) => question.id === req.params.questionId
+  const foundQuestion = questions.find(
+    (question) => question.id === parseInt(req.params.questionId)
   );
 
   if (!foundQuestion)
@@ -87,15 +87,16 @@ router.put("/:questionId", function (req, res, next) {
   if (!questionName || !question || !answer)
     return res.status(400).send({ message: "Missing fields" });
 
+  paramQuestionId = parseInt(req.params.questionId);
   const foundIndex = questions.findIndex(
-    (question) => question.id === req.params.questionId
+    (question) => question.id === paramQuestionId
   );
 
   if (foundIndex === -1)
     return res.status(404).send({ message: "Question not found" });
 
   questions[foundIndex] = {
-    id: req.params.questionId,
+    id: paramQuestionId,
     questionName,
     question,
     answer,
@@ -106,7 +107,7 @@ router.put("/:questionId", function (req, res, next) {
 
 router.delete("/:questionId", function (req, res, next) {
   const foundIndex = questions.findIndex(
-    (question) => question.id === req.params.questionId
+    (question) => question.id === parseInt(req.params.questionId)
   );
 
   if (foundIndex === -1)

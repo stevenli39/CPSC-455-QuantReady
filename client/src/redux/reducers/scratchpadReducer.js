@@ -1,7 +1,7 @@
 
 const initialState = {
     value: '',
-    position: { x: 0, y: 0 }
+    position: { x: 20, y: 400 }
   };
   
   const scratchpadReducer = (state = initialState, action) => {
@@ -15,6 +15,11 @@ const initialState = {
         return {
           ...state,
           position: action.payload,
+        };
+      case 'scratchpad/clearContent':
+        return {
+          ...state,
+          value: '',
         };
       default:
         return state;

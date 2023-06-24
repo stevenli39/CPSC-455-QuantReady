@@ -7,4 +7,8 @@ export const updateContent = content => ({
     type: 'scratchpad/updatePosition',
     payload: position
   });
+
+  export const clearContent = position => ({
+    type: 'scratchpad/clearContent',
+  });
   

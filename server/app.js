@@ -11,7 +11,7 @@ require('./models/User');
 
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
-const questionRouter = require('./routes/question');
+const questionRouter = require('./routes/questions');
 
 mongoose.connect(keys.mongoURI);
 

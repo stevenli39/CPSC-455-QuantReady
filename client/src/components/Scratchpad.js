@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/scratchpad.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateContent, updatePosition } from '../redux/actions/scratchpadActions';
+import { clearContent, updateContent, updatePosition } from '../redux/actions/scratchpadActions';
 
 const Scratchpad = () => {
   const position = useSelector(state => state.scratchpad.position);
@@ -9,7 +9,7 @@ const Scratchpad = () => {
   const dispatch = useDispatch();
 
   const [isDragging, setIsDragging] = useState(false);
-  const [initialPosition, setInitialPosition] = useState({ x: 0, y: 0 });
+  const [initialPosition, setInitialPosition] = useState({ x: 20, y: 100 });
 
   const handleContent = (event) => {
     dispatch(updateContent(event.target.value));
@@ -37,6 +37,10 @@ const Scratchpad = () => {
     setIsDragging(false);
   };
 
+  const handleClear = () => {
+    dispatch(clearContent());
+  }
+
   return (
     <div
       className="scratchpad"
@@ -51,6 +55,8 @@ const Scratchpad = () => {
         placeholder="Enter text..."
         style={{ width: '400px', height: '300px' }}
       />
+
+      <button onClick={handleClear}>Clear</button>
       {/* Scratchpad content */}
     </div>
   );

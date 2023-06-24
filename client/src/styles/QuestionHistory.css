@@ -1,0 +1,15 @@
+h1 {
+    display: grid;
+    color: rgb(23, 23, 21);
+}
+
+.page {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.sidebar {
+    display: grid;
+    list-style-type: none;
+    color: rgb(23, 23, 21);
+}

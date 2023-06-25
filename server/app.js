@@ -11,6 +11,7 @@ require('./models/User');
 
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
+const questionRouter = require('./routes/questions');
 
 mongoose.connect(keys.mongoURI);
 
@@ -34,5 +35,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
+app.use('/questions', questionRouter);
 
 module.exports = app;

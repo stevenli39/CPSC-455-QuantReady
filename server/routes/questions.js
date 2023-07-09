@@ -4,7 +4,7 @@ const { v4: uuid } = require("uuid");
 
 const questions = [
   {
-    id: 1,
+    id: "232a17eb-a9a7-4c0a-9074-02a928b91537",
     questionName: "Tennis game",
     question:
       "For a 3 sets tennis game, would you bet on it finishing in 2 sets or 3 sets?",
@@ -12,7 +12,7 @@ const questions = [
       "Two sets - Let p=prob team 1 wins and q=prob team 2 wins. p^2 + q^2 = probability finish in two sets. 2*p*q = probability finish in three sets. p^2 + q^2 always >= 2*p*q, so the answer is two sets",
   },
   {
-    id: 2,
+    id: "cdfa9ea2-4974-4ba9-adb1-cb9de9646c41",
     questionName: "Square and dots",
     question:
       "I have a square, and place three dots along the 4 edges at random. What is the probability that the dots lie on distinct edges?",
@@ -20,7 +20,7 @@ const questions = [
       "3/8 - Given the edge the first dot is on, the probability the other two dots are on distinct edges is (3/4)*(2/4)",
   },
   {
-    id: 3,
+    id: "81d7ad1d-8af3-4699-9936-1b8988e8c254",
     questionName: "Deck of cards",
     question:
       "Two decks of cards. One deck has 52 cards, the other has 104. You pick two cards separately from a same pack. If both of two cards are red, you win. Which pack will you choose?",
@@ -28,7 +28,7 @@ const questions = [
       "104 card pack - (52/104)*(51/103) > (26/52)*(25/51), or 51/103 > 25/51",
   },
   {
-    id: 4,
+    id: "e1c2f9ac-e6ee-478b-86ac-2c04cce47be9",
     questionName: "Passengers on a plane",
     question:
       "A line of 100 passengers is waiting to board a plane. They each hold a ticket to one of the 100 seats on that flight. (For convenience, let's say that the nth passenger in line has a ticket for the seat number n.) Unfortunately, the first person in line is crazy, and will ignore the seat number on their ticket, picking a random seat to occupy. All of the other passengers are quite normal, and will go to their proper seat unless it is already occupied. If it is occupied, they will then find a free seat to sit in, at random. What is the probability that the last (100th) person to board the plane will sit in their proper seat (#100)?",
@@ -43,7 +43,7 @@ router.get("/", function (req, res, next) {
 
 router.get("/:questionId", function (req, res, next) {
   const foundQuestion = questions.find(
-    (question) => question.id === parseInt(req.params.questionId)
+    (question) => question.id === req.params.questionId
   );
 
   if (!foundQuestion)
@@ -54,7 +54,7 @@ router.get("/:questionId", function (req, res, next) {
 
 router.get("/:questionId/answer", function (req, res, next) {
   const foundQuestion = questions.find(
-    (question) => question.id === parseInt(req.params.questionId)
+    (question) => question.id === req.params.questionId
   );
 
   if (!foundQuestion)
@@ -87,16 +87,15 @@ router.put("/:questionId", function (req, res, next) {
   if (!questionName || !question || !answer)
     return res.status(400).send({ message: "Missing fields" });
 
-  paramQuestionId = parseInt(req.params.questionId);
   const foundIndex = questions.findIndex(
-    (question) => question.id === paramQuestionId
+    (question) => question.id === req.params.questionId
   );
 
   if (foundIndex === -1)
     return res.status(404).send({ message: "Question not found" });
 
   questions[foundIndex] = {
-    id: paramQuestionId,
+    id: req.params.questionId,
     questionName,
     question,
     answer,
@@ -107,7 +106,7 @@ router.put("/:questionId", function (req, res, next) {
 
 router.delete("/:questionId", function (req, res, next) {
   const foundIndex = questions.findIndex(
-    (question) => question.id === parseInt(req.params.questionId)
+    (question) => question.id === req.params.questionId
   );
 
   if (foundIndex === -1)

@@ -10,17 +10,28 @@ import {
 } from "@mui/material";
 
 import Scratchpad from "./Scratchpad";
+import { useSelector , useDispatch} from 'react-redux'
+import { getQuestionsAsync} from '../redux/questions/thunks';
+
 import { Provider } from 'react-redux';
 import store from '../redux/store';
 
 
 
-function QuestionsList({ questions }) {
+function QuestionsList() {
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [questionsList, setQuestionsList] = useState([]);
   const [filterName, setFilterName] = useState("");
   const [answer, setAnswer] = useState("");
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const questions = useSelector((state)=> state.questions.questionsList);
+  useEffect(()=> {
+    dispatch(getQuestionsAsync());
+  }, [])
+
   const handleFilterChange = (e) => {
     setFilterName(e.target.value);
   };

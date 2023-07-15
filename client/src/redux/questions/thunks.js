@@ -26,7 +26,7 @@ export const addQuestionAsync = createAsyncThunk(
 
 export const deleteQuestionAsync = createAsyncThunk(
   actionTypes.DELETE_QUESTION,
-  async (question_name) => {
-    return await deleteQuestion(question_name);
+  async (question_id) => {
+    return await deleteQuestion(question_id);
   }
 );

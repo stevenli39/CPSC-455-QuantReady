@@ -11,10 +11,11 @@ import {
 
 import Scratchpad from "./Scratchpad";
 import { useSelector , useDispatch} from 'react-redux'
-import { getQuestionsAsync} from '../redux/questions/thunks';
+import { deleteQuestionAsync, getQuestionsAsync, addQuestionAsync} from '../redux/questions/thunks';
 
 import { Provider } from 'react-redux';
 import store from '../redux/store';
+import { addQuestion } from "../redux/questions/service";
 
 
 
@@ -68,6 +69,17 @@ function QuestionsList() {
         (question) => question.id === selectedQuestion.id
       ).answer;
     }
+
+    const questionObject = {
+      id: selectedQuestion.id,
+      questionName: selectedQuestion.questionName,
+      question: selectedQuestion.question,
+      answer: selectedQuestion.answer,
+      answerStatus: answer,
+    };
+
+    dispatch(deleteQuestionAsync(selectedQuestion.id));
+    dispatch(addQuestionAsync(questionObject));
   };
 
   return (

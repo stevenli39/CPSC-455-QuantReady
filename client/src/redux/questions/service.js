@@ -36,13 +36,13 @@ export const addQuestion = async (question) => {
   return data;
 };
 
-export const deleteQuestion = async (question_name) => {
+export const deleteQuestion = async (deleteId) => {
   const response = await fetch('http://localhost:3001/questions/${questionId}', {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(question_name)
+    body: JSON.stringify(deleteId)
   });
 
   const data = await response.json();

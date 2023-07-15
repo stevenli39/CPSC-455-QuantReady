@@ -81,7 +81,7 @@ router.delete("/:id", async function (req, res, next) {
     console.log("HI");
     console.log(req.params.id);
     
-    const deletedQuestion = await Question.findOneAndDelete({ name: req.params.id });
+    const deletedQuestion = await Question.findOneAndDelete({ _id: req.params.id });
 
     if (!deletedQuestion) {
       return res.status(404).send("Question not found");

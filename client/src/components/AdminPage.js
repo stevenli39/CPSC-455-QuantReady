@@ -19,7 +19,7 @@ function AdminPage({ questions, createQuestion, updateQuestionById, deleteQuesti
     const [questionList, setQuestionList] = useState([]);
   
 
-  const handleAddQuestion = () => {
+  const handleAddQuestion = async () => {
     // Handle adding a new question
     const newQuestion = {
       type,
@@ -28,7 +28,13 @@ function AdminPage({ questions, createQuestion, updateQuestionById, deleteQuesti
       name,
       correctAnswer,
     };
-    createQuestion(newQuestion);
+    try {
+        const addedQuestion = await createQuestion(newQuestion);
+        setQuestionList((prevList) => [...prevList, addedQuestion]);
+      } catch (error) {
+        console.error("Error adding question:", error);
+      }
+    
     // Clear input fields after adding
     setType("");
     setDescription("");
@@ -65,10 +71,14 @@ function AdminPage({ questions, createQuestion, updateQuestionById, deleteQuesti
     updateQuestionById(questionId, updatedQuestion);
   };
 
-  const handleDeleteQuestion = (id) => {
+  const handleDeleteQuestion = async (id) => {
     // Handle deleting the selected question
-    deleteQuestionById(id);
-    console.log('wb here');
+    try {
+        await deleteQuestionById(id);
+        setQuestionList((prevList) => prevList.filter((question) => question._id !== id));
+      } catch (error) {
+        console.error("Error deleting question:", error);
+      }
   };
 
 const handleSelectQuestion = (question) => {
@@ -133,7 +143,7 @@ const handleSelectQuestion = (question) => {
     <Card key={question.id} className="question-item" variant="outlined">
       <CardContent>
         <Typography variant="body1" gutterBottom>
-          {question.id}{question.name}
+          {question.name}
         </Typography>
         <Typography variant="body2">{question.description}</Typography>
         <Typography variant="body2">
@@ -145,7 +155,7 @@ const handleSelectQuestion = (question) => {
         </Typography>
         <IconButton
                 onClick={() =>
-                     handleDeleteQuestion(question.id)}
+                     handleDeleteQuestion(question._id)}
                 aria-label="delete"
               >
                 <DeleteIcon />

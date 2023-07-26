@@ -8,8 +8,8 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-
 import Scratchpad from "./Scratchpad";
+import CommentTab from "./commentTab";
 import { Provider } from 'react-redux';
 import store from '../redux/store';
 
@@ -130,9 +130,8 @@ function QuestionsList({ questions }) {
           </form>
         </CardContent>
       </Card>
-      
       <Scratchpad/>
-      
+      <CommentTab/> 
     </div>
   );
 }

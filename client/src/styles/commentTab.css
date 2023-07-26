@@ -1,0 +1,26 @@
+.commentContainer {
+    position: absolute;  
+    bottom: 0;        
+    right: 0;  
+    resize: both;
+    width: 30%;       
+    height: auto;
+    overflow: auto;     
+    background: white;
+    border: 1px solid #ccc;
+  }
+  
+  /* For tablets and medium-sized devices */
+  @media (max-width: 300px) {
+    .commentContainer {
+      width: 250px;   /* Adjust width */
+    }
+  }
+  
+  /* For mobile devices */
+  @media (max-width: 300px) {
+    .commentContainer {
+      width: 100%;   /* Take full width */
+    }
+  }
+  

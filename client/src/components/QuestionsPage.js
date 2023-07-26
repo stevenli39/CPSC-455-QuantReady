@@ -9,7 +9,7 @@ import {
   Button,
 } from "@mui/material";
 import Scratchpad from "./Scratchpad";
-import CommentTab from "./commentTab";
+import CommentSection from "./CommentSection";
 import { Provider } from 'react-redux';
 import store from '../redux/store';
 
@@ -131,7 +131,7 @@ function QuestionsList({ questions }) {
         </CardContent>
       </Card>
       <Scratchpad/>
-      <CommentTab/> 
+      <CommentSection/> 
     </div>
   );
 }

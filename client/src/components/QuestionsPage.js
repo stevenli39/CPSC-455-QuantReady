@@ -47,7 +47,7 @@ function QuestionsList({ questions }) {
 
   const handleAnswerChange = (question) => {
     setAnswer(question.target.value);
-  };
+  }; 
 
   const handleAnswerSubmit = () => {
     // Handle answer submission logic here
@@ -131,9 +131,10 @@ function QuestionsList({ questions }) {
         </CardContent>
       </Card>
       <Scratchpad/>
-      <CommentSection/> 
+      {selectedQuestion && <CommentSection questionID={selectedQuestion.id} />}
     </div>
   );
 }
+
 
 export default QuestionsList;

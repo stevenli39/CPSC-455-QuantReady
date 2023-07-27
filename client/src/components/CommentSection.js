@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import * as commentApi from '../api/comments';
-import '../styles/commentTab.css'
+import "../styles/commentTab.css"
+import { Button, TextField } from '@mui/material';
+
+
 
 function CommentSection({ questionID }) {
     const [comments, setComments] = useState([]);
     const [content, setContent] = useState('');
 
     useEffect(() => {
+        if (!questionID) {
+            console.log("No question ID exists")
+            return;
+        }
         async function fetchComments() {
             try {
                 const fetchedComments = await commentApi.fetchCommentsByQuestionID(questionID);
@@ -20,6 +27,10 @@ function CommentSection({ questionID }) {
     }, [questionID]);
 
     const handlePostComment = async () => {
+        if (!questionID) {
+            console.log("I am trying to post but No question ID exists")
+            return null;
+        }    
         try {
             const commentData = {
                 questionID: questionID,
@@ -41,12 +52,19 @@ function CommentSection({ questionID }) {
             <h2>Comments</h2>
             
             <div className="comment-input">
-                <textarea 
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                    placeholder="Add your comment here..."
-                />
-                <button onClick={handlePostComment}>Post Comment</button>
+            <TextField
+    variant="outlined"
+    multiline
+    rows={4}
+    fullWidth
+    value={content}
+    onChange={(e) => setContent(e.target.value)}
+    placeholder="Add your comment here..."
+/>
+
+<Button variant="contained" color="primary" onClick={handlePostComment}>
+    Post Comment
+</Button>
             </div>
 
             <ul className="comment-list">

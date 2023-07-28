@@ -6,7 +6,6 @@ module.exports = function (app) {
     ["/api", "/auth/google"],
     createProxyMiddleware({
       target: process.env.REACT_APP_API_ENDPOINT,
-      changeOrigin: true,
     })
   );
 
@@ -15,7 +14,6 @@ module.exports = function (app) {
     "https://quantready-app.onrender.com/auth/google",
     createProxyMiddleware({
       target: "https://quantready.onrender.com/auth/google",
-      changeOrigin: true,
     })
   );
 };

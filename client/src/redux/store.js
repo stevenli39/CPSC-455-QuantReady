@@ -1,11 +1,13 @@
-import { createStore, combineReducers } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import scratchpadReducer from './reducers/scratchpadReducer';
+import questionsReducer from './questions/reducers';
 
-const rootReducer = combineReducers({
-  scratchpad: scratchpadReducer,
-  // ... other reducers if any
+const store = configureStore({
+  reducer: {
+    scratchpad: scratchpadReducer,
+    questions: questionsReducer
+  },
+  devTools: true
 });
-
-const store = createStore(rootReducer);
 
 export default store;

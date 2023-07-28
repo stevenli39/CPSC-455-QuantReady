@@ -10,17 +10,29 @@ import {
 } from "@mui/material";
 
 import Scratchpad from "./Scratchpad";
+import { useSelector , useDispatch} from 'react-redux'
+import { deleteQuestionAsync, getQuestionsAsync, addQuestionAsync} from '../redux/questions/thunks';
+
 import { Provider } from 'react-redux';
 import store from '../redux/store';
+import { addQuestion } from "../redux/questions/service";
 
 
 
-function QuestionsList({ questions }) {
+function QuestionsList() {
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [questionsList, setQuestionsList] = useState([]);
   const [filterName, setFilterName] = useState("");
   const [answer, setAnswer] = useState("");
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const questions = useSelector((state)=> state.questions.questionsList);
+  useEffect(()=> {
+    dispatch(getQuestionsAsync());
+  }, [])
+
   const handleFilterChange = (e) => {
     setFilterName(e.target.value);
   };
@@ -57,6 +69,17 @@ function QuestionsList({ questions }) {
         (question) => question.id === selectedQuestion.id
       ).answer;
     }
+
+    const questionObject = {
+      id: selectedQuestion.id,
+      questionName: selectedQuestion.questionName,
+      question: selectedQuestion.question,
+      answer: selectedQuestion.answer,
+      answerStatus: answer,
+    };
+
+    dispatch(deleteQuestionAsync(selectedQuestion.id));
+    dispatch(addQuestionAsync(questionObject));
   };
 
   return (

@@ -8,11 +8,12 @@ const logger = require('morgan');
 const cors = require ('cors');
 require('dotenv').config();
 require('./models/User');
+require('./models/Question');
 
 
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
-const questionRouter = require('./routes/questions');
+const questionRouter = require('./routes/questionsMongo');
 
 mongoose.connect(process.env.MONGO_URI);
 

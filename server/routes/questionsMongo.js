@@ -8,7 +8,9 @@ const mongoose = require('mongoose');
 const questionSchema = new mongoose.Schema({
   id: Number,
   questionName: String,
-  question: String,
+  questionDescription: String,
+  questionType: String,
+  levelOfDifficulty: String,
   answer: String,
   answerStatus: Number,
 });
@@ -30,7 +32,7 @@ router.get('/', async function(req, res, next) {
 
 router.post('/', async function (req, res, next) {
   try {
-    const question = new QuestionHistory(req.body);
+    const question = new Questions(req.body);
     await question.save();
     res.json(question);
   } catch (error) {

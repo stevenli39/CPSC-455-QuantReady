@@ -73,10 +73,15 @@ function QuestionsList() {
     const questionObject = {
       id: selectedQuestion.id,
       questionName: selectedQuestion.questionName,
-      question: selectedQuestion.question,
-      answer: selectedQuestion.answer,
+      questionDescription: selectedQuestion.question,
+      questionType: selectedQuestion.questionType,
+      levelOfDifficulty: selectedQuestion.levelOfDifficulty,
+      correctAnswer: selectedQuestion.answer,
       answerStatus: answer,
     };
+
+
+    
 
     dispatch(deleteQuestionAsync(selectedQuestion.id));
     dispatch(addQuestionAsync(questionObject));

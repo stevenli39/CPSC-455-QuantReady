@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useSelector , useDispatch} from 'react-redux'
+
 import {
   TextField,
   Button,
@@ -8,6 +10,9 @@ import {
   IconButton,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { combineReducers } from "redux";
+import { deleteQuestionAsync, getQuestionsAsync, addQuestionAsync} from '../redux/questions/thunks';
+
 
 function AdminPage({ questions, createQuestion, updateQuestionById, deleteQuestionById }) {
     const [questionId, setQuestionId] = useState("");
@@ -21,13 +26,23 @@ function AdminPage({ questions, createQuestion, updateQuestionById, deleteQuesti
 
   const handleAddQuestion = async () => {
     // Handle adding a new question
-    const newQuestion = {
-      type,
-      description,
-      levelOfDifficulty,
-      name,
-      correctAnswer,
-    };
+    let newQuestion = {
+      id: questionId,
+      questionName: name,
+      questionDescription: description,
+      questionType: type,
+      levelOfDifficulty: levelOfDifficulty,
+      answer: correctAnswer,
+      answerStatus: null
+  }
+
+    // const newQuestion = {
+    //   type,
+    //   description,
+    //   levelOfDifficulty,
+    //   name,
+    //   correctAnswer,
+    // };
     try {
         const addedQuestion = await createQuestion(newQuestion);
         setQuestionList((prevList) => [...prevList, addedQuestion]);
@@ -97,6 +112,12 @@ const handleSelectQuestion = (question) => {
         <CardContent>
           <Typography variant="h5">Manage Questions</Typography>
           <form>
+          <TextField
+              label="ID"
+              value={questionId}
+              onChange={(e) => setQuestionId(e.target.value)}
+              fullWidth
+            />
             <TextField
               label="Type"
               value={type}

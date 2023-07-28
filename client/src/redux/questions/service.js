@@ -1,7 +1,10 @@
+import { resolvePath } from "react-router-dom";
+
 export const getQuestions = async () => {
   const response = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/questions`, {
     method: 'GET'
   });
+
   return response.json();
 };
 

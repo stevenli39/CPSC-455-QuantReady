@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Router from './router.js';
+import Router from './Router.js';
 import Nav from './components/Nav.js';
 
 function App() {

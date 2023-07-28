@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require ('cors');
 require('./models/User');
+require('./models/Question');
 
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');

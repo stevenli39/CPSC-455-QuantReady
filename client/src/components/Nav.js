@@ -50,6 +50,9 @@ function Nav() {
                 <MenuItem component={Link} to="/questions">
                     <Typography sx={{ minWidth: 100, color: "#4f4e4e", fontFamily: 'arial', fontWeight: 800 }}>Questions</Typography>
                 </MenuItem>
+                <MenuItem component={Link} to="/admin">
+                    <Typography sx={{ minWidth: 100, color: "#4f4e4e", fontFamily: 'arial', fontWeight: 800 }}>Admin</Typography>
+                </MenuItem>
                 <MenuItem component={Link} to="/about">
                     <Typography sx={{ minWidth: 100, color: "#4f4e4e", fontFamily: 'arial', fontWeight: 800 }}>About Us</Typography>
                 </MenuItem>

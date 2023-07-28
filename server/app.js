@@ -12,7 +12,7 @@ require('./models/Question');
 
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
-const questionRouter = require('./routes/questions');
+const questionRouter = require('./routes/questionsMongo');
 
 mongoose.connect(keys.mongoURI);
 

@@ -2,18 +2,19 @@ const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
-const keys = require('./config/keys');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require ('cors');
+require('dotenv').config();
 require('./models/User');
+
 
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const questionRouter = require('./routes/questions');
 
-mongoose.connect(keys.mongoURI);
+mongoose.connect(process.env.MONGO_URI);
 
 const app = express();
 
@@ -21,7 +22,7 @@ app.use(cors());
 app.use(
     cookieSession({
         maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days in milliseconds
-        keys: [keys.cookieKey]
+        keys: [process.env.COOKIE_KEY]
     })
 ); 
 app.use(passport.initialize());

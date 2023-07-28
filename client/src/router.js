@@ -9,7 +9,7 @@ import AdminPage from "./components/AdminPage";
 import { fetchQuestions, createQuestion, updateQuestionById, deleteQuestionById } from "./api/questions";
 
 
-function Router() {
+function router() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
@@ -25,4 +25,4 @@ deleteQuestionById={deleteQuestionById}/>} />
   );
 }
 
-export default Router;
+export default router;

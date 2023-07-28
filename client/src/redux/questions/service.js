@@ -1,12 +1,12 @@
 export const getQuestions = async () => {
-  const response = await fetch('http://localhost:3001/questions', {
+  const response = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/questions`, {
     method: 'GET'
   });
   return response.json();
 };
 
 export const clearQuestions = async () => {
-const response = await fetch('http://localhost:3001/questions/clear', {
+const response = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/questions/clear`, {
   method: 'POST'
 });
 const data = await response.json();
@@ -19,7 +19,7 @@ const data = await response.json();
 };
 
 export const addQuestion = async (question) => {
-  const response = await fetch('http://localhost:3001/questions', {
+  const response = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/questions`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -37,7 +37,7 @@ export const addQuestion = async (question) => {
 };
 
 export const deleteQuestion = async (deleteId) => {
-  const response = await fetch('http://localhost:3001/questions/${questionId}', {
+  const response = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/questions/${deleteId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'

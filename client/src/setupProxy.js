@@ -1,7 +1,7 @@
 const { createProxyMiddleware } = require("http-proxy-middleware");
 module.exports = function (app) {
   app.use(
-    ["/api", "/auth/google"],
+    ["/api", "/auth/google", "https://quantready-app.onrender.com/auth/google"],
     createProxyMiddleware({
       target: process.env.REACT_APP_API_ENDPOINT,
     })

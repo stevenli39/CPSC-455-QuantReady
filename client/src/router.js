@@ -1,6 +1,5 @@
 import * as React from "react";
 import QuestionsList from "./components/QuestionsPage";
-import questions from "./mock_data/questions";
 import { Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import HomePage from "./pages/HomePage";
@@ -16,7 +15,7 @@ function router() {
       <Route path="/login" element={<Login />} />
       <Route
         path="/questions"
-        element={<QuestionsList questions={questions} />}
+        element={<QuestionsList />}
       />
        <Route path="/admin" element={<AdminPage questions={fetchQuestions()} createQuestion={createQuestion} updateQuestionById={updateQuestionById}
 deleteQuestionById={deleteQuestionById}/>} />

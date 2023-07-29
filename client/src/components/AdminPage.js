@@ -23,6 +23,8 @@ function AdminPage({ questions, createQuestion, updateQuestionById, deleteQuesti
     const [correctAnswer, setCorrectAnswer] = useState("");
     const [questionList, setQuestionList] = useState([]);
   
+    const dispatch = useDispatch();
+
 
   const handleAddQuestion = async () => {
     // Handle adding a new question
@@ -32,9 +34,14 @@ function AdminPage({ questions, createQuestion, updateQuestionById, deleteQuesti
       questionDescription: description,
       questionType: type,
       levelOfDifficulty: levelOfDifficulty,
-      answer: correctAnswer,
+      correctAnswer: correctAnswer,
       answerStatus: null
   }
+
+  dispatch(addQuestionAsync(newQuestion));
+  
+
+
 
     // const newQuestion = {
     //   type,
@@ -43,14 +50,15 @@ function AdminPage({ questions, createQuestion, updateQuestionById, deleteQuesti
     //   name,
     //   correctAnswer,
     // };
-    try {
-        const addedQuestion = await createQuestion(newQuestion);
-        setQuestionList((prevList) => [...prevList, addedQuestion]);
-      } catch (error) {
-        console.error("Error adding question:", error);
-      }
+    // try {
+    //     const addedQuestion = await createQuestion(newQuestion);
+    //     setQuestionList((prevList) => [...prevList, addedQuestion]);
+    //   } catch (error) {
+    //     console.error("Error adding question:", error);
+    //   }
     
     // Clear input fields after adding
+    setQuestionId("");
     setType("");
     setDescription("");
     setLevelOfDifficulty("");

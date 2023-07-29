@@ -11,7 +11,7 @@ const questionSchema = new mongoose.Schema({
   questionDescription: String,
   questionType: String,
   levelOfDifficulty: String,
-  answer: String,
+  correctAnswer: String,
   answerStatus: Number,
 });
 

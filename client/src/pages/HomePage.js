@@ -123,6 +123,7 @@ function HomePage() {
             component={Link}
             to="/login"
             align="center"
+        
     
           >
             Get Started

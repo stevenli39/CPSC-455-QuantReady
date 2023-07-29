@@ -7,6 +7,7 @@ import HomePage from "./pages/HomePage";
 import About from "./pages/About"
 import AdminPage from "./components/AdminPage";
 import { fetchQuestions, createQuestion, updateQuestionById, deleteQuestionById } from "./api/questions";
+import Profile from "./pages/Profile"
 
 
 function Router() {
@@ -14,6 +15,7 @@ function Router() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/Account" element={<Profile />} />
       <Route
         path="/questions"
         element={<QuestionsList questions={questions} />}

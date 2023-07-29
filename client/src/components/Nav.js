@@ -10,6 +10,8 @@ import Container from '@mui/material/Container';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import HomePage from '../pages/HomePage';
+
 
 const settings = ['Progress', 'Account', 'Login'];
 
@@ -22,6 +24,19 @@ function Nav() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleLogout = () => {
+    // Make API call to logout
+    fetch('/api/logout')
+      .then(response => response.json())
+      .then(data => {
+        // Redirect to homepage after logout
+        window.location.href = "/";
+      })
+      .catch(error => {
+        console.error('Error logging out:', error);
+      });
   };
 
   return (
@@ -85,7 +100,11 @@ function Nav() {
                         <MenuItem component={Link} to={`/${setting.toLowerCase()}`} key={setting} onClick={handleCloseUserMenu}>
                             <Typography textAlign="center">{setting}</Typography>
                         </MenuItem>
+                        
                     ))}
+                    <MenuItem onClick={handleLogout}>
+                    <Typography textAlign="center">Logout</Typography>
+                   </MenuItem>
                 </Menu>
             </Box>
         </Toolbar>

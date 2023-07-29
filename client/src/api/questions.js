@@ -3,15 +3,13 @@ import axiosInstance from "./axiosConfig";
 
 // Helper function to fetch all questions
 export const fetchQuestions = () => {
-    return  axiosInstance.get('/questions')
+    return axiosInstance.get('/questions')
       .then(response => response.data)
       .catch(error => {
         console.error(error);
         throw error;
       });
   };
-
-
 
   // Helper function to fetch a specific question by ID
 export const fetchQuestionById = (questionId) => {

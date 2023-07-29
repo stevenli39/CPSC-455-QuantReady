@@ -8,16 +8,8 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-
 import Scratchpad from "./Scratchpad";
-import { useSelector , useDispatch} from 'react-redux'
-import { deleteQuestionAsync, getQuestionsAsync, addQuestionAsync} from '../redux/questions/thunks';
-
-import { Provider } from 'react-redux';
-import store from '../redux/store';
-import { addQuestion } from "../redux/questions/service";
-
-
+import { fetchQuestions } from "../api/questions";
 
 function QuestionsList() {
   const [selectedQuestion, setSelectedQuestion] = useState(null);
@@ -25,14 +17,6 @@ function QuestionsList() {
   const [filterName, setFilterName] = useState("");
   const [answer, setAnswer] = useState("");
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
-
-  const dispatch = useDispatch();
-
-  const questions = useSelector((state)=> state.questions.questionsList);
-  useEffect(()=> {
-    dispatch(getQuestionsAsync());
-  }, [])
-
   const handleFilterChange = (e) => {
     setFilterName(e.target.value);
   };
@@ -48,14 +32,24 @@ function QuestionsList() {
   };
 
   const filteredQuestions = filterName
-    ? questions.filter((question) =>
+    ? questionsList.filter((question) =>
         question.questionName.toLowerCase().includes(filterName.toLowerCase())
       )
-    : questions;
+    : questionsList;
 
   useEffect(() => {
-    setQuestionsList(questions);
-  }, [questions]);
+    const fetchData = async () => {
+      try {
+        // Make your API call here using fetch or axios or any other library
+        const response = await fetchQuestions();
+        setQuestionsList(response); // Update the state with the fetched data
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData(); // Call the function to fetch data when the component loads
+  }, []);
 
   const handleAnswerChange = (question) => {
     setAnswer(question.target.value);
@@ -63,23 +57,7 @@ function QuestionsList() {
 
   const handleAnswerSubmit = () => {
     // Handle answer submission logic here
-    if (selectedQuestion) {
-      setShowCorrectAnswer(true);
-      const correctAnswer = questions.find(
-        (question) => question.id === selectedQuestion.id
-      ).answer;
-    }
-
-    const questionObject = {
-      id: selectedQuestion.id,
-      questionName: selectedQuestion.questionName,
-      question: selectedQuestion.question,
-      answer: selectedQuestion.answer,
-      answerStatus: answer,
-    };
-
-    dispatch(deleteQuestionAsync(selectedQuestion.id));
-    dispatch(addQuestionAsync(questionObject));
+    setShowCorrectAnswer(true);
   };
 
   return (
@@ -98,14 +76,14 @@ function QuestionsList() {
               }}
             />
           </div>
-          {filteredQuestions.map((question) => (
+          {filteredQuestions.map((question, index) => (
             <Typography
               key={question.id}
               variant="body1"
               className="question"
               onClick={() => handleQuestionClick(question)}
             >
-              {question.id}. {question.questionName}
+              {`${index + 1}. ${question.name}`}
             </Typography>
           ))}
         </CardContent>
@@ -113,18 +91,24 @@ function QuestionsList() {
       <Card className="card">
         <CardContent>
           {selectedQuestion ? (
-            <div>
+            <div >
               <Typography variant="h5">
-                {selectedQuestion.questionName}
+                {selectedQuestion.name}
+              </Typography>
+              <Typography variant="body2">
+                Role Type: {selectedQuestion.type}
+              </Typography>
+              <Typography variant="body2">
+                Level of Difficulty: {selectedQuestion.levelOfDifficulty}
               </Typography>
               <Typography variant="body1">
-                {selectedQuestion.question}
+                Description: {selectedQuestion.description}
               </Typography>
               {showCorrectAnswer && (
                 <div>
                   <Typography variant="h6">Correct Answer:</Typography>
                   <Typography variant="body1">
-                    {selectedQuestion.answer}
+                    {selectedQuestion.correctAnswer}
                   </Typography>
                 </div>
               )}
@@ -153,9 +137,7 @@ function QuestionsList() {
           </form>
         </CardContent>
       </Card>
-      
       <Scratchpad/>
-      
     </div>
   );
 }

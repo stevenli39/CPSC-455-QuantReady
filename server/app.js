@@ -13,7 +13,9 @@ require('./models/Question');
 
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
-const questionRouter = require('./routes/questionsMongo');
+// const questionRouter = require('./routes/questionsMongo');
+const questionRouter = require('./routes/questions');
+const questionsRouter2 = require('./routes/questionsMongo');
 
 mongoose.connect(process.env.MONGO_URI);
 
@@ -38,5 +40,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/questions', questionRouter);
+app.use('/questions2', questionsRouter2);
 
 module.exports = app;

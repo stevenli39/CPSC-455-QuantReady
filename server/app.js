@@ -10,11 +10,9 @@ require('dotenv').config();
 require('./models/User');
 require('./models/Question');
 
-
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
-const questionRouter = require('./routes/questionsMongo');
-
+const userRouter = require('./routes/user');
 mongoose.connect(process.env.MONGO_URI);
 
 const app = express();
@@ -38,5 +36,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/questions', questionRouter);
+app.use('/user', userRouter);
 
 module.exports = app;

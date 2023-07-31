@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
+import thunk from 'redux-thunk';
 import scratchpadReducer from './reducers/scratchpadReducer';
-import questionsReducer from './questions/reducers';
+import authReducer from './reducers/authReducer';
 
 const store = configureStore({
   reducer: {
     scratchpad: scratchpadReducer,
-    questions: questionsReducer
+    auth: authReducer
   },
+  middleware: [thunk],
   devTools: true
 });
 

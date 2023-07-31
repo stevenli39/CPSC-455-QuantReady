@@ -8,7 +8,7 @@ import AdminPage from "./components/AdminPage";
 import { fetchQuestions, createQuestion, updateQuestionById, deleteQuestionById } from "./api/questions";
 import QuestionHistory from "./pages/QuestionHistory";
 
-function router() {
+const router = () => {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />

@@ -9,8 +9,8 @@ export const fetchQuestionHistory = (userId) => {
     });
 };
 
-export const addQuestionToHistory = (userId, questionId) => {
-    return axiosInstance.post(`/user/${userId}`, questionId)
+export const addQuestionToHistory = (userId, updatedUser) => {
+    return axiosInstance.post(`/user/${userId}`, updatedUser)
       .then(response => response.data)
       .catch(error => {
         console.error(error);

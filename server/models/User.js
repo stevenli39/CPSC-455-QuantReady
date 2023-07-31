@@ -7,6 +7,7 @@ const userSchema = new Schema({
     lastName: String,
     email: String,
     isAdmin: Boolean,
+    role: String,
     questionHistory: Array
 });
 

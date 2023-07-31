@@ -1,43 +1,29 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const mongoose = require('mongoose');
 const User = mongoose.model('users');
 
-router.get('/:googleId/questionHistory', async (req, res) => {
-    const { googleId } = req.params;
+// Route to handle the PUT request for updating a user
+router.put('/:userId', async function (req, res, next) {
+  try {
+    const user = await User.findById(req.params.userId);
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
 
-    try {
-        const user = await User.findOne({ googleId });
-    
-        if (!user) {
-          return res.status(404).json({ error: 'User not found' });
-        }
-    
-        const questionHistory = user.questionHistory;
-        return res.json({ questionHistory });
-      } catch (error) {
-        console.error('Error retrieving user question history:', error);
-        return res.status(500).json({ error: 'Server error' });
-      }
+    user.firstName = req.body.firstName;
+    user.lastName = req.body.lastName;
+    user.email = req.body.email;
+    user.isAdmin = req.body.isAdmin;
+    user.role = req.body.role;
+    user.questionHistory = req.body.questionHistory;
+
+    await user.save();
+    return res.send(user);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send("An error occurred");
+  }
 });
 
-router.post('/:googleId/questionHistory', async (req, res) => {
-    const { googleId } = req.params;
-    const { question } = req.body;
-  
-    try {
-      const user = await User.findOne({ googleId });
-  
-      if (!user) {
-        return res.status(404).json({ error: 'User not found' });
-      }
-  
-      user.questionHistory = questionHistory.append(question);
-      await user.save();
-  
-      return res.json({ message: 'Question history updated successfully' });
-    } catch (error) {
-      console.error('Error updating user question history:', error);
-      return res.status(500).json({ error: 'Server error' });
-    }
-  });
+module.exports = router;

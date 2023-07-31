@@ -4,8 +4,10 @@ import Button from '@mui/material/Button';
 import GoogleIcon from '@mui/icons-material/Google';
 import { Typography } from "@mui/material";
 
+
 function Login() {
-    const link = process.env.REACT_APP_NODE_ENV === "Development" ? "http://localhost:5000/auth/google" : "https://quantready.onrender.com/auth/google";
+    console.log(process.env.REACT_APP_NODE_ENV);
+    const link = process.env.REACT_APP_NODE_ENV === "development" ? "http://localhost:5000/auth/google" : "https://quantready.onrender.com/auth/google";
 
     return (
         <Container maxWidth="xl" sx={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100vh"}}>

@@ -56,6 +56,9 @@ function Nav() {
                 <MenuItem component={Link} to="/about">
                     <Typography sx={{ minWidth: 100, color: "#4f4e4e", fontFamily: 'arial', fontWeight: 800 }}>About Us</Typography>
                 </MenuItem>
+                <MenuItem component={Link} to="/questionHistory">
+                    <Typography sx={{ minWidth: 100, color: "#4f4e4e", fontFamily: 'arial', fontWeight: 800 }}>Question History</Typography>
+                </MenuItem>
             </Box>
 
             {/* Account Settings */}

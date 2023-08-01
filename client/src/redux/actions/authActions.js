@@ -10,9 +10,11 @@ const fetchUser = () => {
                 dispatch({
                 type: FETCH_USER,
                 payload: res
-        })
-    });
-    }
+                })
+            }).catch(err => {
+                console.log(err);
+            });
+        }
 };
 
 const logoutUser = () => {

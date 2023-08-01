@@ -1,11 +1,11 @@
-import axiosInstance from "../../api/axiosConfig";
+import axios from "../../api/axiosConfig";
 
 const FETCH_USER = "FETCH_USER";
 const LOGOUT_USER = "LOGOUT_USER";
 
 const fetchUser = () => {
     return function(dispatch) {
-        axiosInstance.get("/api/current_user")
+        axios.get("/api/current_user")
             .then(res => {
                 dispatch({
                 type: FETCH_USER,
@@ -17,7 +17,7 @@ const fetchUser = () => {
 
 const logoutUser = () => {
     return function(dispatch) {
-        axiosInstance.get("/api/logout")
+        axios.get("/api/logout")
             .then(res => {
                 dispatch({
                 type: LOGOUT_USER,

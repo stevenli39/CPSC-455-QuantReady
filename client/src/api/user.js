@@ -1,7 +1,7 @@
-import axiosInstance from "./axiosConfig";
+import axios from "./axiosConfig";
 
 export const fetchQuestionHistory = (userId) => {
-    return  axiosInstance.get(`/user/${userId}/questionHistory`)
+    return  axios.get(`/user/${userId}/questionHistory`)
         .then(response => response.data)
         .catch(error => {
         console.error(error);
@@ -9,8 +9,8 @@ export const fetchQuestionHistory = (userId) => {
     });
 };
 
-export const addQuestionToHistory = (userId, updatedUser) => {
-    return axiosInstance.post(`/user/${userId}`, updatedUser)
+export const addQuestionToHistory = (userId, questionId) => {
+    return axios.post(`/user/${userId}`, questionId)
       .then(response => response.data)
       .catch(error => {
         console.error(error);

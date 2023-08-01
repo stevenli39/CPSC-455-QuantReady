@@ -20,7 +20,9 @@ const router = () => {
       <Route path="/admin" element={<AdminPage questions={fetchQuestions()} createQuestion={createQuestion} updateQuestionById={updateQuestionById}
 deleteQuestionById={deleteQuestionById}/>}/>
       <Route path="/about" element={<About/>}/>
+      <Route path="/account" element={<HomePage />} /> 
     </Routes>
+    // Replace the account element with the actual account page later
   );
 }
 

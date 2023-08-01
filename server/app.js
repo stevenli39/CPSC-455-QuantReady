@@ -20,7 +20,7 @@ const app = express();
 
 // Allow requests from http://localhost:3000
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000', 'https://quantready-app.onrender.com'],
     credentials: true, // Set 'Access-Control-Allow-Credentials' to true
   };
 

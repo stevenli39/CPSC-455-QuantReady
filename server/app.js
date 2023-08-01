@@ -25,7 +25,7 @@ const corsOptions = {
   };
 
 app.use(cors(corsOptions));
-app.use('trust proxy');
+app.enable('trust proxy');
 app.use(
     cookieSession({
         maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days in milliseconds

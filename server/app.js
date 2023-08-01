@@ -20,11 +20,12 @@ const app = express();
 
 // Allow requests from http://localhost:3000
 const corsOptions = {
-    origin: ['http://localhost:3000', 'https://quantready-app.onrender.com'],
+    origin: ['http://localhost:3000', 'https://quantready.onrender.com'],
     credentials: true, // Set 'Access-Control-Allow-Credentials' to true
   };
 
 app.use(cors(corsOptions));
+app.use('trust proxy');
 app.use(
     cookieSession({
         maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days in milliseconds

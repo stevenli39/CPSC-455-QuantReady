@@ -1,5 +1,5 @@
 # QuantReady
-QuantReady is an interview preparation platform designed to assist students in preparing for quantitative finance interviews. It provides mock interviews that replicate the experience of real-world quantitative finance interviews. This repository contains the project tasks and requirements for the development of QuantReady.
+QuantReady is an interview preparation platform designed to assist students in preparing for quantitative finance interviews. It provides mock interview questions that replicate the experience of real-world quantitative finance interviews. This repository contains the project tasks and requirements for the development of QuantReady.
 QuantReady is an interview preparation platform designed to help students excel in quantitative finance interviews. It offers a range of features and resources to enhance users' preparation and performance. The platform includes question banks, mock interviews, user profiles, and additional functionalities based on the project scope.
 
 ## Project Task Requirements

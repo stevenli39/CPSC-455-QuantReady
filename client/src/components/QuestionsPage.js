@@ -10,12 +10,9 @@ import {
 } from "@mui/material";
 import Scratchpad from "./Scratchpad";
 import CommentSection from "./CommentSection";
-import { Provider } from 'react-redux';
-import store from '../redux/store';
+import { fetchQuestions } from "../api/questions";
 
-
-
-function QuestionsList({ questions }) {
+function QuestionsList() {
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [questionsList, setQuestionsList] = useState([]);
   const [filterName, setFilterName] = useState("");
@@ -36,14 +33,24 @@ function QuestionsList({ questions }) {
   };
 
   const filteredQuestions = filterName
-    ? questions.filter((question) =>
+    ? questionsList.filter((question) =>
         question.questionName.toLowerCase().includes(filterName.toLowerCase())
       )
-    : questions;
+    : questionsList;
 
   useEffect(() => {
-    setQuestionsList(questions);
-  }, [questions]);
+    const fetchData = async () => {
+      try {
+        // Make your API call here using fetch or axios or any other library
+        const response = await fetchQuestions();
+        setQuestionsList(response); // Update the state with the fetched data
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData(); // Call the function to fetch data when the component loads
+  }, []);
 
   const handleAnswerChange = (question) => {
     setAnswer(question.target.value);
@@ -51,12 +58,7 @@ function QuestionsList({ questions }) {
 
   const handleAnswerSubmit = () => {
     // Handle answer submission logic here
-    if (selectedQuestion) {
-      setShowCorrectAnswer(true);
-      const correctAnswer = questions.find(
-        (question) => question.id === selectedQuestion.id
-      ).answer;
-    }
+    setShowCorrectAnswer(true);
   };
 
   return (
@@ -75,14 +77,14 @@ function QuestionsList({ questions }) {
               }}
             />
           </div>
-          {filteredQuestions.map((question) => (
+          {filteredQuestions.map((question, index) => (
             <Typography
               key={question.id}
               variant="body1"
               className="question"
               onClick={() => handleQuestionClick(question)}
             >
-              {question.id}. {question.questionName}
+              {`${index + 1}. ${question.name}`}
             </Typography>
           ))}
         </CardContent>
@@ -90,18 +92,24 @@ function QuestionsList({ questions }) {
       <Card className="card">
         <CardContent>
           {selectedQuestion ? (
-            <div>
+            <div >
               <Typography variant="h5">
-                {selectedQuestion.questionName}
+                {selectedQuestion.name}
+              </Typography>
+              <Typography variant="body2">
+                Role Type: {selectedQuestion.type}
+              </Typography>
+              <Typography variant="body2">
+                Level of Difficulty: {selectedQuestion.levelOfDifficulty}
               </Typography>
               <Typography variant="body1">
-                {selectedQuestion.question}
+                Description: {selectedQuestion.description}
               </Typography>
               {showCorrectAnswer && (
                 <div>
                   <Typography variant="h6">Correct Answer:</Typography>
                   <Typography variant="body1">
-                    {selectedQuestion.answer}
+                    {selectedQuestion.correctAnswer}
                   </Typography>
                 </div>
               )}
@@ -135,6 +143,5 @@ function QuestionsList({ questions }) {
     </div>
   );
 }
-
 
 export default QuestionsList;

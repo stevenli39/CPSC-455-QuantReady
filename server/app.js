@@ -2,31 +2,33 @@ const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
-const keys = require('./config/keys');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require ('cors');
-const bodyParser = require('body-parser');
-
+require('dotenv').config();
 require('./models/User');
 require('./models/Question');
 
 const indexRouter = require('./routes/index');
+const userRouter = require('./routes/user');
 const authRouter = require('./routes/auth');
 const questionRouter = require('./routes/questions');
-const commentRouter = require('./routes/comments')
-
-mongoose.connect(keys.mongoURI);
+mongoose.connect(process.env.MONGO_URI);
 
 const app = express();
 
-app.use(cors());
-app.use(bodyParser.json())
+// Allow requests from http://localhost:3000
+const corsOptions = {
+    origin: ['http://localhost:3000', 'https://quantready-app.onrender.com'],
+    credentials: true, // Set 'Access-Control-Allow-Credentials' to true
+  };
+
+app.use(cors(corsOptions));
 app.use(
     cookieSession({
         maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days in milliseconds
-        keys: [keys.cookieKey]
+        keys: [process.env.COOKIE_KEY]
     })
 ); 
 app.use(passport.initialize());
@@ -40,6 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
+app.use('/user', userRouter);
 app.use('/questions', questionRouter);
 app.use('/comments', commentRouter)
 

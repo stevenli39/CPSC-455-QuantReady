@@ -9,11 +9,14 @@ const cors = require ('cors');
 require('dotenv').config();
 require('./models/User');
 require('./models/Question');
+const bodyParser = require('body-parser');
+
 
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');
 const authRouter = require('./routes/auth');
 const questionRouter = require('./routes/questions');
+const commentRouter = require('./routes/comments')
 mongoose.connect(process.env.MONGO_URI);
 
 const app = express();
@@ -25,6 +28,7 @@ const corsOptions = {
   };
 
 app.use(cors(corsOptions));
+app.use(bodyParser.json())
 app.use(
     cookieSession({
         maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days in milliseconds

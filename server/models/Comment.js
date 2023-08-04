@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
 const CommentSchema = new Schema({
-    questionID: Number,
+    questionID: String,
     userID: String,
     firstName: String,
     timeStamp: String,

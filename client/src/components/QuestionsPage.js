@@ -139,7 +139,7 @@ function QuestionsList() {
         </CardContent>
       </Card>
       <Scratchpad/>
-      {selectedQuestion && <CommentSection questionID={selectedQuestion.id} />}
+      {selectedQuestion && <CommentSection questionID={selectedQuestion._id} />}
     </div>
   );
 }

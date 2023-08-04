@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import * as commentApi from '../api/comments';
 import "../styles/commentTab.css"
 import { Button, TextField } from '@mui/material';
+import { connect } from 'react-redux';
+import { fetchUser } from '../redux/actions/authActions';
 
 
 
-function CommentSection({ questionID }) {
+
+function CommentSection({ user, fetchUser, questionID }) { 
     const [comments, setComments] = useState([]);
-    const [content, setContent] = useState('');
+    const [content, setContent] = useState('');    
 
     useEffect(() => {
         if (!questionID) {
@@ -22,7 +25,8 @@ function CommentSection({ questionID }) {
                 console.error('Failed to fetch comments:', error);
             }
         }
-
+        console.log("this", fetchUser());
+        fetchUser()
         fetchComments();
     }, [questionID]);
 
@@ -30,13 +34,17 @@ function CommentSection({ questionID }) {
         if (!questionID) {
             console.log("I am trying to post but No question ID exists")
             return null;
-        }    
+        } 
+
+        const now = new Date();
+        const timeStamp = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+        
         try {
             const commentData = {
                 questionID: questionID,
-                userID: 'defaultUserID', // Replace with dynamic userID after implementing authentication
+                userID: user?._id || 'defaultUserID',
                 content: content,
-                timeStamp: new Date().toISOString(),
+                timeStamp: timeStamp,
                 firstName: 'John' // Replace with user's real name after implementing authentication
             };
             const newComment = await commentApi.postComment(commentData);
@@ -78,4 +86,14 @@ function CommentSection({ questionID }) {
     );
 }
 
-export default CommentSection;
+const mapStateToProps = (state) => {
+    return {
+        user: state.user // This assumes that you're storing the user data in a `user` property in your Redux state
+    };
+};
+
+const mapDispatchToProps = {
+    fetchUser
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CommentSection);

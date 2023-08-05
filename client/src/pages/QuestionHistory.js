@@ -16,6 +16,8 @@ export default function QuestionHistory(){
   const loginState = useSelector(state => state.auth);
   const isLoggedIn = (loginState && loginState.user);
   const questionsHistory = isLoggedIn ? loginState.user.questionHistory : [];
+  
+ 
 
   // define score stores
   let scoreNumeric= 0;
@@ -54,21 +56,27 @@ export default function QuestionHistory(){
     { questionType: 'Beginner', score: scoreBeginner },
     { questionType: 'Intermediate', score: scoreIntermediate },
     { questionType: 'Advanced', score: scoreAdvanced},
-  ];
+  ]; 
 
 
   
     const [displayStatus, setDisplayStatus] = useState({name: '', description: '', type: "", levelOfDifficulty: ""})
 
-    if (isLoggedIn) {
+
+
+    // if (isLoggedIn) {
       return(
         <div>
           <h1>
               Questions History
           </h1>
           <div className="page">
+            <div className="pageLeft">
               <Card className = 'questionsList'>
                   <CardContent>
+                      <p>
+                          Recent History:
+                      </p>
                       <ol>
                           {questionsHistory.map((question) => (
                               <li key={question.name} onClick={() => setDisplayStatus(question)}>
@@ -76,42 +84,62 @@ export default function QuestionHistory(){
                               </li>
                           ))}
                       </ol>
-                      <p>
-                          Click on a question to view its details
-                      </p>
                   </CardContent>
               </Card>
+              <Card>
+                <CardContent>
+                
+              <div >
+                <Typography variant="body1">
+                  Question Name: {displayStatus.name}
+                </Typography>
+                <Typography variant="body1">
+                  Role Type: {displayStatus.type}
+                </Typography>
+                <Typography variant="body1">
+                  Level of Difficulty: {displayStatus.levelOfDifficulty}
+                </Typography>
+                <Typography variant="body1">
+                  Description: {displayStatus.description}
+                </Typography>
+            
+              </div>
+
+                <p>
+                  Click on a question to view its details
+                </p>
+                </CardContent>
+                      
+    
+
+                      
+              </Card>
+
+
+              
+
+              </div>
 
               <div className="pageRight">
               
-              <Card>
-                  <ul className="sidebar">
-                      <li>Question Name: {displayStatus.name}</li>
-                      <li>Question Description: {displayStatus.description}</li>
-                      <li>Question Type:{displayStatus.type}</li>
-                      <li>Question Difficulty: {displayStatus.levelOfDifficulty}</li>  
-                        
-
-                  </ul>
-              </Card>
-
-              <Card>
+              
+              <Card className="graphs">
                   <CardContent>
+                    <p>Types:</p>
                       <BarGraph data = {dataType}/>
                   </CardContent>
-              </Card>
-
-              <Card>
                   <CardContent>
+                    <p>Difficulty:</p>
                       <BarGraph data = {dataDifficulty}/>
                   </CardContent>
               </Card>
+
 
               </div>
           </div>
       </div>
     )
-  } else {
-    return <Navigate to="/login" />;
-  }
+  // } else {
+  //   return <Navigate to="/login" />;
+  // }
 }

@@ -4,13 +4,13 @@ import "../styles/commentTab.css"
 import { Button, TextField } from '@mui/material';
 import { connect } from 'react-redux';
 import { fetchUser } from '../redux/actions/authActions';
+import { useSelector } from 'react-redux';
 
 
-
-
-function CommentSection({ user, fetchUser, questionID }) { 
+function CommentSection({ questionID }) { 
     const [comments, setComments] = useState([]);
-    const [content, setContent] = useState('');    
+    const [content, setContent] = useState('');
+    const user = useSelector(state => state.auth.user);
 
     useEffect(() => {
         if (!questionID) {
@@ -25,8 +25,6 @@ function CommentSection({ user, fetchUser, questionID }) {
                 console.error('Failed to fetch comments:', error);
             }
         }
-        console.log("this", fetchUser());
-        fetchUser()
         fetchComments();
     }, [questionID]);
 
@@ -45,7 +43,7 @@ function CommentSection({ user, fetchUser, questionID }) {
                 userID: user?._id || 'defaultUserID',
                 content: content,
                 timeStamp: timeStamp,
-                firstName: 'John' // Replace with user's real name after implementing authentication
+                firstName: user.firstName // Replace with user's real name after implementing authentication
             };
             const newComment = await commentApi.postComment(commentData);
             setComments([...comments, newComment]);

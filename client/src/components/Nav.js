@@ -10,11 +10,23 @@ import Container from '@mui/material/Container';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from '../redux/actions/authActions';
 
-const settings = ['Progress', 'Account', 'Login'];
 
 function Nav() {
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const loginState = useSelector(state => state.auth);
+  const isLoggedIn = (loginState && loginState.user);
+  const loginText = isLoggedIn ? 'Logout' : 'Login';
+  const isAdmin = (loginState && loginState.user && loginState.user.isAdmin) ? true : false;
+  const settings = ['Progress', 'Account', loginText];
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    setAnchorElUser(null);
+    dispatch(logoutUser());
+  }
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -50,9 +62,9 @@ function Nav() {
                 <MenuItem component={Link} to="/questions">
                     <Typography sx={{ minWidth: 100, color: "#4f4e4e", fontFamily: 'arial', fontWeight: 800 }}>Questions</Typography>
                 </MenuItem>
-                <MenuItem component={Link} to="/admin">
+                {isAdmin && <MenuItem component={Link} to="/admin">
                     <Typography sx={{ minWidth: 100, color: "#4f4e4e", fontFamily: 'arial', fontWeight: 800 }}>Admin</Typography>
-                </MenuItem>
+                </MenuItem>}
                 <MenuItem component={Link} to="/about">
                     <Typography sx={{ minWidth: 100, color: "#4f4e4e", fontFamily: 'arial', fontWeight: 800 }}>About Us</Typography>
                 </MenuItem>
@@ -81,11 +93,19 @@ function Nav() {
                     open={Boolean(anchorElUser)}
                     onClose={handleCloseUserMenu}
                 >
-                    {settings.map((setting) => (
-                        <MenuItem component={Link} to={`/${setting.toLowerCase()}`} key={setting} onClick={handleCloseUserMenu}>
-                            <Typography textAlign="center">{setting}</Typography>
-                        </MenuItem>
-                    ))}
+                {settings.map((setting) => (
+                    setting === 'Logout' ? (
+                    // Render a different MenuItem for "Logout"
+                    <MenuItem key={setting} onClick={handleLogout}>
+                        <Typography textAlign="center">{setting}</Typography>
+                    </MenuItem>
+                    ) : (
+                    // Regular MenuItem for other settings
+                    <MenuItem key={setting} component={Link} to={`/${setting.toLowerCase()}`} onClick={handleCloseUserMenu}>
+                        <Typography textAlign="center">{setting}</Typography>
+                    </MenuItem>
+                    )
+                ))}
                 </Menu>
             </Box>
         </Toolbar>

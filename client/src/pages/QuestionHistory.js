@@ -64,7 +64,7 @@ export default function QuestionHistory(){
 
 
 
-    // if (isLoggedIn) {
+    if (isLoggedIn) {
       return(
         <div>
           <h1>
@@ -139,7 +139,7 @@ export default function QuestionHistory(){
           </div>
       </div>
     )
-  // } else {
-  //   return <Navigate to="/login" />;
-  // }
+  } else {
+    return <Navigate to="/login" />;
+  }
 }

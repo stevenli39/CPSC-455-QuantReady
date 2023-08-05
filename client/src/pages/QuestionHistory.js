@@ -21,6 +21,10 @@ export default function QuestionHistory(){
   let scoreNumeric= 0;
   let scoreMCQ= 0;
   let scoreSA = 0; 
+
+  let scoreBeginner = 0;
+  let scoreIntermediate = 0;
+  let scoreAdvanced = 0;
   
 
   questionsHistory.forEach((question) => {
@@ -31,12 +35,25 @@ export default function QuestionHistory(){
     }else if(question.type === "Short-answer"){
       scoreSA += 1;
     }
+    if(question.levelOfDifficulty == "Beginner"){
+      scoreBeginner += 1;
+    } else if(question.levelOfDifficulty === "Intermediate"){
+      scoreIntermediate += 1;
+    }else if(question.levelOfDifficulty === "Advanced"){
+      scoreAdvanced += 1;
+    }
   })
 
-  const data = [
+  const dataType = [
     { questionType: 'MCQ', score: scoreMCQ },
     { questionType: 'ShortAnswer', score: scoreSA },
     { questionType: 'Numeric', score: scoreNumeric},
+  ];
+
+  const dataDifficulty = [
+    { questionType: 'Beginner', score: scoreBeginner },
+    { questionType: 'Intermediate', score: scoreIntermediate },
+    { questionType: 'Advanced', score: scoreAdvanced},
   ];
 
 
@@ -80,9 +97,16 @@ export default function QuestionHistory(){
 
               <Card>
                   <CardContent>
-                      <BarGraph data = {data}/>
+                      <BarGraph data = {dataType}/>
                   </CardContent>
               </Card>
+
+              <Card>
+                  <CardContent>
+                      <BarGraph data = {dataDifficulty}/>
+                  </CardContent>
+              </Card>
+
               </div>
           </div>
       </div>

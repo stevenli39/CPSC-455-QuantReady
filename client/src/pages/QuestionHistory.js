@@ -9,7 +9,7 @@ import {
     Button,
   } from "@mui/material";
 import { useSelector } from "react-redux";
-
+import { Navigate } from "react-router-dom";
 
 export default function QuestionHistory(){
   const loginState = useSelector(state => state.auth);
@@ -38,11 +38,12 @@ export default function QuestionHistory(){
     { questionType: 'Numeric', score: scoreNumeric},
   ];
 
-
   
     const [displayStatus, setDisplayStatus] = useState({name: '', description: '', type: "", levelOfDifficulty: ""})
 
-    return(
+
+    if (isLoggedIn) {
+      return(
         <div>
             <h1>
                 Questions History
@@ -85,5 +86,9 @@ export default function QuestionHistory(){
             </div>
             
         </div>
-    )
+      )
+    } else {
+      return <Navigate to="/login" />;
+    }
+
 }

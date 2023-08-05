@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import ProgressDisplay from '../components/ProgressDisplay'
+import React, {useState, useEffect} from "react";
+import BarGraph from '../components/BarGraph'
 import '../styles/QuestionHistory.css'
 import {
     TextField,
@@ -8,13 +8,39 @@ import {
     Typography,
     Button,
   } from "@mui/material";
+import { useSelector } from "react-redux";
+
 
 export default function QuestionHistory(){
-    const questions = [
-        {id: 1, question: 'Question1', questionType: "Type A", questionStatus: "complete"},
-         {id: 2, question: "Question2", questionType: "Type B", questionStatus: "incomplete"}];
-    const [displayStatus, setDisplayStatus] = useState({id: '', question: '', questionType: "", questionStatus: ""})
+  const loginState = useSelector(state => state.auth);
+  const isLoggedIn = (loginState && loginState.user);
+  const questionsHistory = (isLoggedIn) ? loginState.user.questionHistory : [];
 
+  // define score stores
+  let scoreNumeric= 0;
+  let scoreMCQ= 0;
+  let scoreSA = 0; 
+  
+
+  questionsHistory.forEach((question) => {
+    if(question.type == "MCQ"){
+      scoreMCQ += 1;
+    } else if(question.type === "Numeric"){
+      scoreNumeric += 1;
+    }else if(question.type === "Short-answer"){
+      scoreSA += 1;
+    }
+  })
+
+  const data = [
+    { questionType: 'MCQ', score: scoreMCQ },
+    { questionType: 'ShortAnswer', score: scoreSA },
+    { questionType: 'Numeric', score: scoreNumeric},
+  ];
+
+
+  
+    const [displayStatus, setDisplayStatus] = useState({name: '', description: '', type: "", levelOfDifficulty: ""})
 
     return(
         <div>
@@ -22,12 +48,12 @@ export default function QuestionHistory(){
                 Questions History
             </h1>
             <div className="page">
-                <Card className = 'card'>
+                <Card className = 'questionsList'>
                     <CardContent>
                         <ol>
-                            {questions.map((questions) => (
-                                <li key={questions.id} onClick={() => setDisplayStatus(questions)}>
-                                    {questions.question}
+                            {questionsHistory.map((question) => (
+                                <li key={question.name} onClick={() => setDisplayStatus(question)}>
+                                    {question.name}
                                 </li>
                             ))}
                         </ol>
@@ -36,48 +62,28 @@ export default function QuestionHistory(){
                         </p>
                     </CardContent>
                 </Card>
-                <Card>
-                    <CardContent>
-                        <ProgressDisplay/>
-                    </CardContent>
-                </Card>
+
+                <div className="pageRight">
                 
                 <Card>
                     <ul className="sidebar">
-                        <li> <label>Question ID: {displayStatus.id}</label></li>
-                        <li>Question: {displayStatus.question}</li>
-                        <li>Question Type:{displayStatus.questionType}</li>
-                        <li>Question Status: {displayStatus.questionStatus}</li>             
+                        <li>Question Name: {displayStatus.name}</li>
+                        <li>Question Description: {displayStatus.description}</li>
+                        <li>Question Type:{displayStatus.type}</li>
+                        <li>Question Difficulty: {displayStatus.levelOfDifficulty}</li>  
+                         
+
                     </ul>
                 </Card>
+
+                <Card>
+                    <CardContent>
+                        <BarGraph data = {data}/>
+                    </CardContent>
+                </Card>
+                </div>
             </div>
             
         </div>
     )
 }
-
-{/* <Card className="card">
-<CardContent>
-  <div className="search-container">
-    <TextField
-      label="Filter by Name"
-      value={filterName}
-      onChange={handleFilterChange}
-      onBlur={handleFilterBlur}
-      fullWidth
-      InputProps={{
-        startAdornment: <Search />,
-      }}
-    />
-  </div>
-  {filteredQuestions.map((question) => (
-    <Typography
-      key={question.id}
-      variant="body1"
-      className="question"
-      onClick={() => handleQuestionClick(question)}
-    >
-      {question.id}. {question.questionName}
-    </Typography>
-  ))}
-</CardContent> */}

@@ -8,19 +8,23 @@ import {
   Typography,
   Button,
 } from "@mui/material";
+import CommentSection from "./CommentSection";
+import { fetchQuestions } from "../api/questions";
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { updateUser } from "../redux/actions/authActions";
 
-import Scratchpad from "./Scratchpad";
-import { Provider } from 'react-redux';
-import store from '../redux/store';
-
-
-
-function QuestionsList({ questions }) {
+function QuestionsList() {
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [questionsList, setQuestionsList] = useState([]);
   const [filterName, setFilterName] = useState("");
   const [answer, setAnswer] = useState("");
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
+  const loginState = useSelector(state => state.auth);
+  const isLoggedIn = (loginState && loginState.user);
+  const user = isLoggedIn ? loginState.user : null;
+  const dispatch = useDispatch();
   const handleFilterChange = (e) => {
     setFilterName(e.target.value);
   };
@@ -36,105 +40,126 @@ function QuestionsList({ questions }) {
   };
 
   const filteredQuestions = filterName
-    ? questions.filter((question) =>
+    ? questionsList.filter((question) =>
         question.questionName.toLowerCase().includes(filterName.toLowerCase())
       )
-    : questions;
+    : questionsList;
 
   useEffect(() => {
-    setQuestionsList(questions);
-  }, [questions]);
+    const fetchData = async () => {
+      try {
+        // Make your API call here using fetch or axios or any other library
+        const response = await fetchQuestions();
+        setQuestionsList(response); // Update the state with the fetched data
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData(); // Call the function to fetch data when the component loads
+  }, []);
 
   const handleAnswerChange = (question) => {
     setAnswer(question.target.value);
-  };
+  }; 
 
-  const handleAnswerSubmit = () => {
+  const handleAnswerSubmit = async (selectedQuestion) => {
     // Handle answer submission logic here
-    if (selectedQuestion) {
-      setShowCorrectAnswer(true);
-      const correctAnswer = questions.find(
-        (question) => question.id === selectedQuestion.id
-      ).answer;
+    let questionHistory = user.questionHistory;
+
+    if (!questionHistory.some((question) => question.name === selectedQuestion.name)) {
+      const newQuestionHistory = [...questionHistory, selectedQuestion];
+      dispatch(updateUser(user._id, { ...user, questionHistory: newQuestionHistory }));
     }
+    setShowCorrectAnswer(true);
   };
 
-  return (
-    <div className="questions">
-      <Card className="card">
-        <CardContent>
-          <div className="search-container">
-            <TextField
-              label="Filter by Name"
-              value={filterName}
-              onChange={handleFilterChange}
-              onBlur={handleFilterBlur}
-              fullWidth
-              InputProps={{
-                startAdornment: <Search />,
-              }}
-            />
-          </div>
-          {filteredQuestions.map((question) => (
-            <Typography
-              key={question.id}
-              variant="body1"
-              className="question"
-              onClick={() => handleQuestionClick(question)}
-            >
-              {question.id}. {question.questionName}
-            </Typography>
-          ))}
-        </CardContent>
-      </Card>
-      <Card className="card">
-        <CardContent>
-          {selectedQuestion ? (
-            <div>
-              <Typography variant="h5">
-                {selectedQuestion.questionName}
-              </Typography>
-              <Typography variant="body1">
-                {selectedQuestion.question}
-              </Typography>
-              {showCorrectAnswer && (
-                <div>
-                  <Typography variant="h6">Correct Answer:</Typography>
-                  <Typography variant="body1">
-                    {selectedQuestion.answer}
-                  </Typography>
-                </div>
-              )}
+  if (isLoggedIn) {
+    return (
+      <div className="questions">
+        <Card className="card">
+          <CardContent>
+            <div className="search-container">
+              <TextField
+                label="Filter by Name"
+                value={filterName}
+                onChange={handleFilterChange}
+                onBlur={handleFilterBlur}
+                fullWidth
+                InputProps={{
+                  startAdornment: <Search />,
+                }}
+              />
             </div>
-          ) : (
-            <Typography variant="body1">
-              Click on a question to view it
-            </Typography>
-          )}
-          <form className="answerForm">
-            <TextField
-              label="Your Answer"
-              value={answer}
-              onChange={handleAnswerChange}
-              className="answerInput"
-              fullWidth
-            />
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleAnswerSubmit}
-              className="submitButton"
-            >
-              Submit
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
-      
-      <Scratchpad/>
-      
-    </div>
-  );
+            {filteredQuestions.map((question, index) => (
+              <Typography
+                key={question.id}
+                variant="body1"
+                className="question"
+                onClick={() => handleQuestionClick(question)}
+              >
+                {`${index + 1}. ${question.name}`}
+              </Typography>
+            ))}
+          </CardContent>
+        </Card>
+        <Card className="card">
+          <CardContent>
+            {selectedQuestion ? (
+              <div >
+                <Typography variant="h5">
+                  {selectedQuestion.name}
+                </Typography>
+                <Typography variant="body2">
+                  Role Type: {selectedQuestion.type}
+                </Typography>
+                <Typography variant="body2">
+                  Level of Difficulty: {selectedQuestion.levelOfDifficulty}
+                </Typography>
+                <Typography variant="body1">
+                  Description: {selectedQuestion.description}
+                </Typography>
+                {showCorrectAnswer && (
+                  <div>
+                    <Typography variant="h6">Correct Answer:</Typography>
+                    <Typography variant="body1">
+                      {selectedQuestion.correctAnswer}
+                    </Typography>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Typography variant="body1">
+                Click on a question to view it
+              </Typography>
+            )}
+            <form className="answerForm">
+              <TextField
+                label="Your Answer"
+                value={answer}
+                onChange={handleAnswerChange}
+                className="answerInput"
+                fullWidth
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => handleAnswerSubmit(selectedQuestion)}
+                className="submitButton"
+              >
+                Submit
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+        {selectedQuestion && <CommentSection questionID={selectedQuestion._id} />}
+      </div>
+    );
+  } else {
+    return (
+      <Navigate to="/login" />
+    )
+  }
 }
 
 export default QuestionsList;

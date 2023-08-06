@@ -1,7 +1,3 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -54,7 +50,7 @@ function Nav() {
           </Box>
 
           <Box className="menuItems">
-            {/* Add Home Button */}
+        
             <MenuItem
               component={Link}
               to="/"
@@ -63,7 +59,6 @@ function Nav() {
               Home
             </MenuItem>
 
-            {/* Other Menu Items */}
             <MenuItem
               component={Link}
               to="/questions"

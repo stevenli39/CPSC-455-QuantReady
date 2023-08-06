@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import '../styles/scratchpad.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearContent, updateContent, updatePosition } from '../redux/actions/scratchpadActions';

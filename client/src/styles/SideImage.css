@@ -1,0 +1,14 @@
+.side-image-container {
+    position: absolute; /* Change this from "fixed" to "absolute" */
+    top: 55%;
+    right: 25rem; /* Adjust the distance from the right side */
+    transform: translateY(-50%);
+    width: 600px; /* Adjust the width of the image */
+    z-index: 1;
+  }
+  
+  .side-image-container img {
+    width: 100%;
+    height: auto;
+  }
+  

@@ -10,6 +10,8 @@ import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from '../redux/actions/authActions';
 
 import Logo from '../images/Logo.png';
 import Logo2 from '../images/Logo2.png';
@@ -19,6 +21,17 @@ const settings = ['Progress', 'Account', 'Login'];
 
 function Nav() {
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const loginState = useSelector(state => state.auth);
+  const isLoggedIn = (loginState && loginState.user);
+  const loginText = isLoggedIn ? 'Logout' : 'Login';
+  const isAdmin = (loginState && loginState.user && loginState.user.isAdmin) ? true : false;
+  const settings = ['Progress', 'Account', loginText];
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    setAnchorElUser(null);
+    dispatch(logoutUser());
+  }
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -28,18 +41,7 @@ function Nav() {
     setAnchorElUser(null);
   };
 
-  const handleLogout = () => {
-    // Make API call to logout
-    fetch('/api/logout')
-      .then(response => response.json())
-      .then(data => {
-        // Redirect to homepage after logout
-        window.location.href = "/";
-      })
-      .catch(error => {
-        console.error('Error logging out:', error);
-      });
-  };
+
 
   return (
     <AppBar position="sticky" className="navbar">
@@ -54,7 +56,7 @@ function Nav() {
           </Box>
 
           <Box className="menuItems">
-            {/* Add Home Button */}
+           
             <MenuItem
               component={Link}
               to="/"
@@ -63,7 +65,7 @@ function Nav() {
               Home
             </MenuItem>
 
-            {/* Other Menu Items */}
+           
             <MenuItem
               component={Link}
               to="/questions"
@@ -71,13 +73,13 @@ function Nav() {
             >
               Questions
             </MenuItem>
-            <MenuItem
+            {isAdmin && <MenuItem
               component={Link}
               to="/admin"
               className="menu-item tooltip-button"
             >
               Admin
-            </MenuItem>
+            </MenuItem>}
             <MenuItem
               component={Link}
               to="/about"
@@ -121,22 +123,22 @@ function Nav() {
                 },
               }}
             >
-              {settings.map((setting) => (
-                <MenuItem
-                  component={Link}
-                  to={`/${setting.toLowerCase()}`}
-                  key={setting}
-                  onClick={handleCloseUserMenu}
-                  className="tooltip-button"
-                >
-                  {setting}
-                </MenuItem>
-              ))}
-              <MenuItem onClick={handleLogout} className="tooltip-button">
-                Logout
-              </MenuItem>
-            </Menu>
-          </Box>
+              
+                {settings.map((setting) => (
+                    setting === 'Logout' ? (
+                    // Render a different MenuItem for "Logout"
+                    <MenuItem key={setting} onClick={handleLogout} className="tooltip-button">
+                        <Typography textAlign="center">{setting}</Typography>
+                    </MenuItem>
+                    ) : (
+                    // Regular MenuItem for other settings
+                    <MenuItem key={setting} component={Link} to={`/${setting.toLowerCase()}`} onClick={handleCloseUserMenu}>
+                        <Typography textAlign="center">{setting}</Typography>
+                    </MenuItem>
+                    )
+                ))}
+                </Menu>
+            </Box>
         </Toolbar>
       </Container>
     </AppBar>

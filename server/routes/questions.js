@@ -77,10 +77,7 @@ router.put("/:questionId", async function (req, res, next) {
 });
 
 router.delete("/:id", async function (req, res, next) {
-  try {
-    console.log("HI");
-    console.log(req.params.id);
-    
+  try {    
     const deletedQuestion = await Question.findOneAndDelete({ _id: req.params.id });
 
     if (!deletedQuestion) {

@@ -1,8 +1,9 @@
-import axios from "axios";
+import axiosInstance from "./axiosConfig";
+
 
 // Helper function to fetch all questions
 export const fetchQuestions = () => {
-    return  axios.get('http://localhost:3001/questions')
+    return axiosInstance.get('/questions')
       .then(response => response.data)
       .catch(error => {
         console.error(error);
@@ -10,11 +11,9 @@ export const fetchQuestions = () => {
       });
   };
 
-
-
   // Helper function to fetch a specific question by ID
 export const fetchQuestionById = (questionId) => {
-    return axios.get(`http://localhost:3001/questions/${questionId}`)
+    return axiosInstance.get(`/questions/${questionId}`)
       .then(response => response.data)
       .catch(error => {
         console.error(error);
@@ -24,7 +23,7 @@ export const fetchQuestionById = (questionId) => {
 
   // Helper function to fetch the answer of a specific question by ID
 export const fetchQuestionAnswer = (questionId) => {
-    return axios.get(`http://localhost:3001/questions/${questionId}/answer`)
+    return axiosInstance.get(`/questions/${questionId}/answer`)
       .then(response => response.data)
       .catch(error => {
         console.error(error);
@@ -35,7 +34,7 @@ export const fetchQuestionAnswer = (questionId) => {
 
 // Helper function to create a new question
 export const createQuestion = (questionData) => {
-    return axios.post('http://localhost:3001/questions', questionData)
+    return axiosInstance.post('/questions', questionData)
       .then(response => response.data)
       .catch(error => {
         console.error(error);
@@ -46,7 +45,7 @@ export const createQuestion = (questionData) => {
 
 // Helper function to update an existing question by ID
 export const updateQuestionById = (questionId, questionData) => {
-    return axios.put(`http://localhost:3001/questions/${questionId}`, questionData)
+    return axiosInstance.put(`/questions/${questionId}`, questionData)
       .then(response => response.data)
       .catch(error => {
         console.error(error);
@@ -57,8 +56,7 @@ export const updateQuestionById = (questionId, questionData) => {
 
 // Helper function to delete a question by ID
 export const deleteQuestionById = (id) => {
-    console.log("HIIII");
-    return axios.delete(`http://localhost:3001/questions/${id}`)
+    return axiosInstance.delete(`/questions/${id}`)
       .then(response => response.data.message)
       .catch(error => {
         console.error(error);

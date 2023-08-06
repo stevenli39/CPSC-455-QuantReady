@@ -1,11 +1,15 @@
-import { createStore, combineReducers } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
+import thunk from 'redux-thunk';
 import scratchpadReducer from './reducers/scratchpadReducer';
+import authReducer from './reducers/authReducer';
 
-const rootReducer = combineReducers({
-  scratchpad: scratchpadReducer,
-  // ... other reducers if any
+const store = configureStore({
+  reducer: {
+    scratchpad: scratchpadReducer,
+    auth: authReducer
+  },
+  middleware: [thunk],
+  devTools: true
 });
-
-const store = createStore(rootReducer);
 
 export default store;

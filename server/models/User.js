@@ -5,7 +5,10 @@ const userSchema = new Schema({
     googleId: String,
     firstName: String,
     lastName: String,
-    email: String
+    email: String,
+    isAdmin: Boolean,
+    role: String,
+    questionHistory: Array
 });
 
 mongoose.model('users', userSchema);

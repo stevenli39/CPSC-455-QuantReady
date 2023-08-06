@@ -1,10 +1,20 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import Router from './router.js';
 import Nav from './components/Nav.js';
+
 import Footer from './components/footer.js';
 
 
-function App() {
+import { connect } from 'react-redux';
+import { fetchUser } from './redux/actions/authActions.js';
+
+function App({ fetchUser }) {
+
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]); 
+
+
   return (
     <>
       <Nav />
@@ -16,4 +26,4 @@ function App() {
   );
 }
 
-export default App;
+export default connect(null, { fetchUser })(App);

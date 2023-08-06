@@ -56,6 +56,8 @@ function QuestionsList() {
       }
     };
 
+
+
     fetchData(); // Call the function to fetch data when the component loads
   }, []);
 
@@ -157,7 +159,9 @@ function QuestionsList() {
     );
   } else {
     return (
-      <Navigate to="/login" />
+      <Typography variant="body1">
+        Please login to view questions
+      </Typography>
     )
   }
 }

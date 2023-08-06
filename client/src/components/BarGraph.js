@@ -5,10 +5,10 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'rec
 const BarGraph = ({data}) => {
     // From chatgpt
   return (
-    <BarChart width= {500} height={300} data={data}>
+    <BarChart width= {350} height = {200} data={data}>
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="questionType" />
-      <YAxis dataKey="score"/>
+      <YAxis dataKey="score" interval={1}/>
       <Tooltip />
       <Legend />
       <Bar dataKey="score" fill="#FF7F50" />

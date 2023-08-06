@@ -1,12 +1,10 @@
-import React, {useState, useEffect} from "react";
+import React, { useState } from "react";
 import BarGraph from '../components/BarGraph'
 import '../styles/QuestionHistory.css'
 import {
-    TextField,
     Card,
     CardContent,
     Typography,
-    Button,
   } from "@mui/material";
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
@@ -16,30 +14,44 @@ export default function QuestionHistory(){
   const loginState = useSelector(state => state.auth);
   const isLoggedIn = (loginState && loginState.user);
   const questionsHistory = isLoggedIn ? loginState.user.questionHistory : [];
-
+  
   // define score stores
   let scoreNumeric= 0;
   let scoreMCQ= 0;
   let scoreSA = 0; 
-  
+
+  let scoreBeginner = 0;
+  let scoreIntermediate = 0;
+  let scoreAdvanced = 0;
 
   questionsHistory.forEach((question) => {
-    if(question.type == "MCQ"){
+    if(question.type === "MCQ"){
       scoreMCQ += 1;
     } else if(question.type === "Numeric"){
       scoreNumeric += 1;
     }else if(question.type === "Short-answer"){
       scoreSA += 1;
     }
+    if(question.levelOfDifficulty === "Beginner"){
+      scoreBeginner += 1;
+    } else if(question.levelOfDifficulty === "Intermediate"){
+      scoreIntermediate += 1;
+    }else if(question.levelOfDifficulty === "Advanced"){
+      scoreAdvanced += 1;
+    }
   })
 
-  const data = [
+  const dataType = [
     { questionType: 'MCQ', score: scoreMCQ },
     { questionType: 'ShortAnswer', score: scoreSA },
     { questionType: 'Numeric', score: scoreNumeric},
   ];
 
-
+  const dataDifficulty = [
+    { questionType: 'Beginner', score: scoreBeginner },
+    { questionType: 'Intermediate', score: scoreIntermediate },
+    { questionType: 'Advanced', score: scoreAdvanced},
+  ]; 
   
     const [displayStatus, setDisplayStatus] = useState({name: '', description: '', type: "", levelOfDifficulty: ""})
 
@@ -50,8 +62,12 @@ export default function QuestionHistory(){
               Questions History
           </h1>
           <div className="page">
+            <div className="pageLeft">
               <Card className = 'questionsList'>
                   <CardContent>
+                      <p>
+                          Recent History:
+                      </p>
                       <ol>
                           {questionsHistory.map((question) => (
                               <li key={question.name} onClick={() => setDisplayStatus(question)}>
@@ -59,31 +75,44 @@ export default function QuestionHistory(){
                               </li>
                           ))}
                       </ol>
-                      <p>
-                          Click on a question to view its details
-                      </p>
                   </CardContent>
               </Card>
-
-              <div className="pageRight">
-              
-              <Card>
-                  <ul className="sidebar">
-                      <li>Question Name: {displayStatus.name}</li>
-                      <li>Question Description: {displayStatus.description}</li>
-                      <li>Question Type:{displayStatus.type}</li>
-                      <li>Question Difficulty: {displayStatus.levelOfDifficulty}</li>  
-                        
-
-                  </ul>
-              </Card>
-
-              <Card>
+                <Card>
                   <CardContent>
-                      <BarGraph data = {data}/>
+                    <div >
+                      <Typography variant="body1">
+                        Question Name: {displayStatus.name}
+                      </Typography>
+                      <Typography variant="body1">
+                        Role Type: {displayStatus.type}
+                      </Typography>
+                      <Typography variant="body1">
+                        Level of Difficulty: {displayStatus.levelOfDifficulty}
+                      </Typography>
+                      <Typography variant="body1">
+                        Description: {displayStatus.description}
+                      </Typography>
+                    </div>
+                    <p>
+                      Click on a question to view its details
+                    </p>
                   </CardContent>
               </Card>
-              </div>
+            </div>
+            <div className="pageRight">
+              <Card className="graphs">
+                  <CardContent>
+                    <Typography>Type:</Typography>
+                    <br></br>
+                      <BarGraph data = {dataType}/>
+                  </CardContent>
+                  <CardContent>
+                  <Typography>Difficulty:</Typography>
+                    <br></br>
+                      <BarGraph data = {dataDifficulty}/>
+                  </CardContent>
+              </Card>
+            </div>
           </div>
       </div>
     )

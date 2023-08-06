@@ -117,6 +117,8 @@ export default function QuestionHistory(){
       </div>
     )
   } else {
-    return <Navigate to="/login" />;
+    <Typography variant="h5">
+      Please login to view your question history
+    </Typography>
   }
 }

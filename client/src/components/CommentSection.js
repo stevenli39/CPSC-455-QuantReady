@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 function CommentSection({ questionID }) { 
     const [comments, setComments] = useState([]);
     const [content, setContent] = useState('');
+    const [isMinimized, setIsMinimized] = useState(false); 
     const user = useSelector(state => state.auth.user);
 
     useEffect(() => {
@@ -55,38 +56,50 @@ function CommentSection({ questionID }) {
 
     return (
         <div className="commentContainer">
-            <h2>Comments</h2>
-            
-            <div className="comment-input">
-            <TextField
-    variant="outlined"
-    multiline
-    rows={4}
-    fullWidth
-    value={content}
-    onChange={(e) => setContent(e.target.value)}
-    placeholder="Add your comment here..."
-/>
-
-<Button variant="contained" color="primary" onClick={handlePostComment}>
-    Post Comment
-</Button>
+                <button className="minimizeButton" onClick={() => setIsMinimized(!isMinimized)}>
+                    {isMinimized ? '+' : '-'}
+                </button>
+                <div className="commentHeader">
+                <h2>Comments</h2>
             </div>
+            
+            {!isMinimized && ( // Check if it's minimized
+                <>
+                    <div className="comment-input">
+                        <TextField
+                            variant="outlined"
+                            multiline
+                            rows={4}
+                            fullWidth
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)}
+                            placeholder="Add your comment here..."
+                        />
 
-            <ul className="comment-list">
-                {comments.map(comment => (
-                    <li key={comment._id}>
-                        <strong>{comment.firstName}</strong> ({comment.timeStamp}): {comment.content}
-                    </li>
-                ))}
-            </ul>
+                        <Button variant="contained" color="primary" onClick={handlePostComment}>
+                            Post Comment
+                        </Button>
+                    </div>
+
+                    <ul className="comment-list">
+                        {comments.map(comment => (
+                            <li key={comment._id}>
+                                <strong>{comment.firstName}</strong> ({comment.timeStamp}): {comment.content}
+                            </li>
+                        ))}
+                    </ul>
+                </>
+            )}
         </div>
     );
 }
 
+
+
 const mapStateToProps = (state) => {
+    console.log(state.user)
     return {
-        user: state.user // This assumes that you're storing the user data in a `user` property in your Redux state
+        user: state.user 
     };
 };
 

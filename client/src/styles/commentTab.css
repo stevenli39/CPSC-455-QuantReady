@@ -1,0 +1,76 @@
+.commentContainer {
+    max-width: 800px;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    font-family: 'Arial', sans-serif;
+    bottom: 10px;  /* Adjust spacing from bottom as per your preference */
+    right: 0px;   /* Adjust spacing from right as per your preference */
+    position: fixed;
+
+}
+
+.commentContainer.minimized {
+  height: 50px;
+  width: 50px;
+  overflow: hidden;
+  border-radius: 50%;  /* makes it circular */
+  background-color: #333;  /* or any other background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.commentContainer h2 {
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 16px;
+  font-size: 24px;
+}
+
+.minimizeButton {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  /* Add other styling if necessary */
+}
+
+.comment-input {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comment-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.comment-list li {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.comment-list li:last-child {
+  border-bottom: none;
+}
+
+.comment-list strong {
+  color: #007BFF;
+}
+
+TextField {
+  margin-bottom: 16px;
+}
+
+Button {
+  align-self: flex-end;
+  text-transform: none;
+  font-size: 16px;
+}
+

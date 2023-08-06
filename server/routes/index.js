@@ -9,7 +9,6 @@ router.get('/api/logout', (req, res) => {
 
 router.get('/api/current_user', (req, res) => {
   // req.session contains all the data stored inside of the cookie
-  console.log(req);
   res.send(req.user);
 });
 module.exports = router;

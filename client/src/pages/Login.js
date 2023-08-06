@@ -6,8 +6,7 @@ import { Typography } from "@mui/material";
 
 
 function Login() {
-    console.log(process.env.REACT_APP_NODE_ENV);
-    const link = process.env.REACT_APP_NODE_ENV === "development" ? "http://localhost:3001/auth/google" : "https://quantready.onrender.com/auth/google";
+    const link = `${process.env.REACT_APP_API_ENDPOINT}/auth/google`;
 
     return (
         <Container maxWidth="xl" sx={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100vh"}}>

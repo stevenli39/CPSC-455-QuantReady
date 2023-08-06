@@ -17,7 +17,8 @@ import { logoutUser } from '../redux/actions/authActions';
 function Nav() {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const loginState = useSelector(state => state.auth);
-  const loginText = (loginState && loginState.user) ? "Logout" : "Login";
+  const isLoggedIn = (loginState && loginState.user);
+  const loginText = isLoggedIn ? 'Logout' : 'Login';
   const isAdmin = (loginState && loginState.user && loginState.user.isAdmin) ? true : false;
   const settings = ['Progress', 'Account', loginText];
   const dispatch = useDispatch();

@@ -7,7 +7,6 @@ import {
     Typography,
   } from "@mui/material";
 import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
 
 
 export default function QuestionHistory(){
@@ -117,8 +116,11 @@ export default function QuestionHistory(){
       </div>
     )
   } else {
-    <Typography variant="h5">
-      Please login to view your question history
-    </Typography>
+    return (
+      // center this component on the page
+      <h1>
+        Please log in to view your question history
+      </h1>
+    );
   }
 }

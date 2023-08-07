@@ -12,12 +12,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from '../redux/actions/authActions';
-
-import Logo from '../images/Logo.png';
 import Logo2 from '../images/Logo2.png';
 import '../styles/nav.css';
-
-const settings = ['Progress', 'Account', 'Login'];
 
 function Nav() {
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -25,7 +21,7 @@ function Nav() {
   const isLoggedIn = (loginState && loginState.user);
   const loginText = isLoggedIn ? 'Logout' : 'Login';
   const isAdmin = (loginState && loginState.user && loginState.user.isAdmin) ? true : false;
-  const settings = ['Progress', 'Account', loginText];
+  const settings = ['Account', 'Progress', loginText];
   const dispatch = useDispatch();
 
   const handleLogout = () => {
@@ -66,13 +62,13 @@ function Nav() {
             </MenuItem>
 
            
-            <MenuItem
+            {isLoggedIn && <MenuItem
               component={Link}
               to="/questions"
               className="menu-item tooltip-button"
             >
               Questions
-            </MenuItem>
+            </MenuItem>}
             {isAdmin && <MenuItem
               component={Link}
               to="/admin"
@@ -123,21 +119,32 @@ function Nav() {
                 },
               }}
             >
-              
-                {settings.map((setting) => (
-                    setting === 'Logout' ? (
-                    // Render a different MenuItem for "Logout"
-                    <MenuItem key={setting} onClick={handleLogout} className="tooltip-button">
-                        <Typography textAlign="center">{setting}</Typography>
-                    </MenuItem>
-                    ) : (
-                    // Regular MenuItem for other settings
-                    <MenuItem key={setting} component={Link} to={`/${setting.toLowerCase()}`} onClick={handleCloseUserMenu}>
-                        <Typography textAlign="center">{setting}</Typography>
-                    </MenuItem>
+                {/* Menu items for logged-in users */}
+                {isLoggedIn && (
+                    <>
+                        <MenuItem key={settings[0]} component={Link} to={`/${settings[0].toLowerCase()}`} onClick={handleCloseUserMenu} className="tooltip-button">
+                            <Typography textAlign="center">{settings[0]}</Typography>
+                        </MenuItem>
+                        <MenuItem key={settings[1]} component={Link} to={`/${settings[1].toLowerCase()}`} onClick={handleCloseUserMenu} className="tooltip-button">
+                            <Typography textAlign="center">{settings[1]}</Typography>
+                        </MenuItem>
+                    </>
+                )}
+
+                {/* Menu item for Login, displayed for non-logged-in users */}
+                {isLoggedIn ? 
+                    (
+                        <MenuItem key={loginText} component={Link} to={'/'} onClick={handleLogout} className="tooltip-button">
+                            <Typography textAlign="center">Logout</Typography>
+                        </MenuItem>
+                    ) :
+                    (
+                        <MenuItem key={loginText} component={Link} to={`/${settings[2].toLowerCase()}`} onClick={handleCloseUserMenu} className="tooltip-button">
+                            <Typography textAlign="center">Login</Typography>
+                        </MenuItem>
                     )
-                ))}
-                </Menu>
+                }
+            </Menu>
             </Box>
         </Toolbar>
       </Container>

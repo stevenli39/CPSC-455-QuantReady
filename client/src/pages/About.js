@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Fade from 'react-reveal/Fade'; // Import from react-reveal
+import { Fade } from 'react-reveal'; // Import from react-reveal
 import steven from '../images/steven.jpeg';
 import annie from '../images/annie.jpeg';
 import yasser from '../images/yasser.jpeg';

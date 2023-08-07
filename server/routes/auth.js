@@ -48,7 +48,7 @@ router.get('/google', passport.authenticate('google', {
 
 router.get('/google/callback', passport.authenticate('google'), 
   (req, res) => {
-    res.redirect(`${process.env.REACT_APP_ENDPOINT}/account`);
+    res.redirect(`${process.env.REACT_APP_ENDPOINT}`);
   });
 
 module.exports = router;

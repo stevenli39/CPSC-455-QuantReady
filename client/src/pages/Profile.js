@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import {
   Avatar,
@@ -70,14 +70,23 @@ const ActionsContainer = styled('div')(({ theme }) => ({
 const ProfilePage = () => {
   const loginState = useSelector(state => state.auth);
   const isLoggedIn = (loginState && loginState.user);
-  const user = isLoggedIn ? loginState.user : null;
-  const [firstName, setFirstName] = useState(user.firstName);
-  const [lastName, setLastName] = useState(user.lastName);
-  const [email, setEmail] = useState(user.email);
-  const [role, setRole] = useState(user.role);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [role, setRole] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [image, setImage] = useState("");
+  const user = isLoggedIn ? loginState.user : null;
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      setFirstName(user.firstName);
+      setLastName(user.lastName);
+      setEmail(user.email);
+      setRole(user.role);
+    }
+  }, [isLoggedIn, user]);
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);

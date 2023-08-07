@@ -11,7 +11,6 @@ import {
 import CommentSection from "./CommentSection";
 import { fetchQuestions } from "../api/questions";
 import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { updateUser } from "../redux/actions/authActions";
 

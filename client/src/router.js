@@ -7,12 +7,17 @@ import About from "./pages/About"
 import AdminPage from "./components/AdminPage";
 import { fetchQuestions, createQuestion, updateQuestionById, deleteQuestionById } from "./api/questions";
 
+import Profile from "./pages/Profile"
+
+import QuestionHistory from "./pages/QuestionHistory";
+
 
 const router = () => {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/Account" element={<Profile />} />
       <Route
         path="/questions"
         element={<QuestionsList />}
@@ -21,6 +26,8 @@ const router = () => {
 deleteQuestionById={deleteQuestionById}/>}/>
       <Route path="/about" element={<About/>}/>
       <Route path="/account" element={<HomePage />} /> 
+        <Route path="/progress" element={<QuestionHistory/>}/>
+
     </Routes>
     // Replace the account element with the actual account page later
   );

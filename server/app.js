@@ -9,18 +9,14 @@ const cors = require ('cors');
 require('dotenv').config();
 require('./models/User');
 require('./models/Question');
+const bodyParser = require('body-parser');
+
 
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');
 const authRouter = require('./routes/auth');
-<<<<<<< HEAD
-// const questionRouter = require('./routes/questionsMongo');
 const questionRouter = require('./routes/questions');
-const questionsRouter2 = require('./routes/questionsMongo');
-
-=======
-const questionRouter = require('./routes/questions');
->>>>>>> 2576115863ebf4b23d39ec10959680267c91edb4
+const commentRouter = require('./routes/comments')
 mongoose.connect(process.env.MONGO_URI);
 
 const app = express();
@@ -32,6 +28,7 @@ const corsOptions = {
   };
 
 app.use(cors(corsOptions));
+app.use(bodyParser.json())
 app.use(
     cookieSession({
         maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days in milliseconds
@@ -51,6 +48,6 @@ app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/user', userRouter);
 app.use('/questions', questionRouter);
-app.use('/questions2', questionsRouter2);
+app.use('/comments', commentRouter)
 
 module.exports = app;

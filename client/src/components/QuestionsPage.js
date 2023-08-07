@@ -8,10 +8,9 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import Scratchpad from "./Scratchpad";
+import CommentSection from "./CommentSection";
 import { fetchQuestions } from "../api/questions";
 import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { updateUser } from "../redux/actions/authActions";
 
@@ -56,12 +55,14 @@ function QuestionsList() {
       }
     };
 
+
+
     fetchData(); // Call the function to fetch data when the component loads
   }, []);
 
   const handleAnswerChange = (question) => {
     setAnswer(question.target.value);
-  };
+  }; 
 
   const handleAnswerSubmit = async (selectedQuestion) => {
     // Handle answer submission logic here
@@ -152,12 +153,14 @@ function QuestionsList() {
             </form>
           </CardContent>
         </Card>
-        {/* <Scratchpad/> */}
+        {selectedQuestion && <CommentSection questionID={selectedQuestion._id} />}
       </div>
     );
   } else {
     return (
-      <Navigate to="/login" />
+      <Typography variant="body1">
+        Please login to view questions
+      </Typography>
     )
   }
 }

@@ -1,83 +1,126 @@
-import React, {useState} from "react";
-import ProgressDisplay from '../components/ProgressDisplay'
+import React, { useState } from "react";
+import BarGraph from '../components/BarGraph'
 import '../styles/QuestionHistory.css'
 import {
-    TextField,
     Card,
     CardContent,
     Typography,
-    Button,
   } from "@mui/material";
+import { useSelector } from 'react-redux';
+
 
 export default function QuestionHistory(){
-    const questions = [
-        {id: 1, question: 'Question1', questionType: "Type A", questionStatus: "complete"},
-         {id: 2, question: "Question2", questionType: "Type B", questionStatus: "incomplete"}];
-    const [displayStatus, setDisplayStatus] = useState({id: '', question: '', questionType: "", questionStatus: ""})
+  const loginState = useSelector(state => state.auth);
+  const isLoggedIn = (loginState && loginState.user);
+  const questionsHistory = isLoggedIn ? loginState.user.questionHistory : [];
+  
+  // define score stores
+  let scoreNumeric= 0;
+  let scoreMCQ= 0;
+  let scoreSA = 0; 
 
+  let scoreBeginner = 0;
+  let scoreIntermediate = 0;
+  let scoreAdvanced = 0;
 
-    return(
+  questionsHistory.forEach((question) => {
+    if(question.type === "MCQ"){
+      scoreMCQ += 1;
+    } else if(question.type === "Numeric"){
+      scoreNumeric += 1;
+    }else if(question.type === "Short-answer"){
+      scoreSA += 1;
+    }
+    if(question.levelOfDifficulty === "Beginner"){
+      scoreBeginner += 1;
+    } else if(question.levelOfDifficulty === "Intermediate"){
+      scoreIntermediate += 1;
+    }else if(question.levelOfDifficulty === "Advanced"){
+      scoreAdvanced += 1;
+    }
+  })
+
+  const dataType = [
+    { questionType: 'MCQ', score: scoreMCQ },
+    { questionType: 'ShortAnswer', score: scoreSA },
+    { questionType: 'Numeric', score: scoreNumeric},
+  ];
+
+  const dataDifficulty = [
+    { questionType: 'Beginner', score: scoreBeginner },
+    { questionType: 'Intermediate', score: scoreIntermediate },
+    { questionType: 'Advanced', score: scoreAdvanced},
+  ]; 
+  
+    const [displayStatus, setDisplayStatus] = useState({name: '', description: '', type: "", levelOfDifficulty: ""})
+
+    if (isLoggedIn) {
+      return(
         <div>
-            <h1>
-                Questions History
-            </h1>
-            <div className="page">
-                <Card className = 'card'>
-                    <CardContent>
-                        <ol>
-                            {questions.map((questions) => (
-                                <li key={questions.id} onClick={() => setDisplayStatus(questions)}>
-                                    {questions.question}
-                                </li>
-                            ))}
-                        </ol>
-                        <p>
-                            Click on a question to view its details
-                        </p>
-                    </CardContent>
-                </Card>
+          <h1>
+              Questions History
+          </h1>
+          <div className="page">
+            <div className="pageLeft">
+              <Card className = 'questionsList'>
+                  <CardContent>
+                      <p>
+                          Recent History:
+                      </p>
+                      <ol>
+                          {questionsHistory.map((question) => (
+                              <li key={question.name} onClick={() => setDisplayStatus(question)}>
+                                  {question.name}
+                              </li>
+                          ))}
+                      </ol>
+                  </CardContent>
+              </Card>
                 <Card>
-                    <CardContent>
-                        <ProgressDisplay/>
-                    </CardContent>
-                </Card>
-                
-                <Card>
-                    <ul className="sidebar">
-                        <li> <label>Question ID: {displayStatus.id}</label></li>
-                        <li>Question: {displayStatus.question}</li>
-                        <li>Question Type:{displayStatus.questionType}</li>
-                        <li>Question Status: {displayStatus.questionStatus}</li>             
-                    </ul>
-                </Card>
+                  <CardContent>
+                    <div >
+                      <Typography variant="body1">
+                        Question Name: {displayStatus.name}
+                      </Typography>
+                      <Typography variant="body1">
+                        Role Type: {displayStatus.type}
+                      </Typography>
+                      <Typography variant="body1">
+                        Level of Difficulty: {displayStatus.levelOfDifficulty}
+                      </Typography>
+                      <Typography variant="body1">
+                        Description: {displayStatus.description}
+                      </Typography>
+                    </div>
+                    <p>
+                      Click on a question to view its details
+                    </p>
+                  </CardContent>
+              </Card>
             </div>
-            
-        </div>
+            <div className="pageRight">
+              <Card className="graphs">
+                  <CardContent>
+                    <Typography>Type:</Typography>
+                    <br></br>
+                      <BarGraph data = {dataType}/>
+                  </CardContent>
+                  <CardContent>
+                  <Typography>Difficulty:</Typography>
+                    <br></br>
+                      <BarGraph data = {dataDifficulty}/>
+                  </CardContent>
+              </Card>
+            </div>
+          </div>
+      </div>
     )
+  } else {
+    return (
+      // center this component on the page
+      <h1>
+        Please log in to view your question history
+      </h1>
+    );
+  }
 }
-
-{/* <Card className="card">
-<CardContent>
-  <div className="search-container">
-    <TextField
-      label="Filter by Name"
-      value={filterName}
-      onChange={handleFilterChange}
-      onBlur={handleFilterBlur}
-      fullWidth
-      InputProps={{
-        startAdornment: <Search />,
-      }}
-    />
-  </div>
-  {filteredQuestions.map((question) => (
-    <Typography
-      key={question.id}
-      variant="body1"
-      className="question"
-      onClick={() => handleQuestionClick(question)}
-    >
-      {question.id}. {question.questionName}
-    </Typography>
-  ))}
-</CardContent> */}

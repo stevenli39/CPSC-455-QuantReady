@@ -85,7 +85,6 @@ const ProfilePage = () => {
       setLastName(user.lastName);
       setEmail(user.email);
       setRole(user.role);
-      setImage(user.image);
     }
   }, [isLoggedIn, user]);
 

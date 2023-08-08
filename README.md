@@ -66,9 +66,9 @@ We believe that the Google Authentication and user profile feature is above and 
    - Annie: I spearheaded the full stack development of creating questions endpoints, and constructing questions page to display different types of questions as well as the question admin page for admin to add, delete or update questions. Additionally, I contributed to creating the question schema.
    - Angad: I constructed the frontend to monitor user progress and played a role in developing components for the questions page. Additionally, I contributed to populating the database and established a script for streamlined database management in the future.
    - Armaghan: I contributed to the team in the following:
-      - Coming up with the idea, and communicating with the team and external stakeholders such as the UBCTG. This also included collecting questions.
-      - Making the about us page, redux implementation and the comment feature on the questions page.
-      - Helping in coordination and communication.
+      - Coming up with the idea, and communicating with the team and external stakeholders such as the UBCTG. This also included collecting questions and ensuring they fulfill the required criteria.
+      - Making the About Us page, redux implementation and the comment feature (endpoints + schema) on the questions page (Front End + Back End).
+      - Helping in coordination and communication. Ensuring that everyone in the team was on the same page.
    - Steven: I did the setup for the technologies for each unit, bootstrapping the frontend, backend, database, handling deployments and configuring our custom domain name. I played the role of a PM and EM, coordinating the team, ensuring that we were on track with our deliverables and reviewing all PRs. I also contributed to the frontend and backend development, namely the user profile, navbar, all user related endpoints, and the Google authentication feature.
    - Yasser: I played a pivotal role in shaping the user experience by crafting the homepage, about page, and profile page designs. Beyond frontend development, I also created essential API endpoints for seamless retrieval of user data through Google Auth. By infusing interactive animations across the platform, I ensured a cohesive and polished visual identity, fostering a consistent, engaging, and user-friendly website environment.
 

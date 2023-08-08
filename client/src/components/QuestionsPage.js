@@ -18,7 +18,6 @@ import MCQQuestion from "./MCQQuestion";
 import NumericQuestion from "./NumericQuestion";
 import ShortAnswerQuestion from "./ShortAnswerQuestion";
 import TrickQuestion from "./TrickQuestion";
-import { makeStyles } from '@mui/styles';
 import CommentSection from "./CommentSection";
 
 import { updateUser } from "../redux/actions/authActions";

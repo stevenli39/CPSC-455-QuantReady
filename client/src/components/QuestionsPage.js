@@ -115,7 +115,7 @@ function QuestionsList() {
         <div className="categories-container">
           {/* Render sections for each type */}
           {["Numeric", "MCQ", "Short-Answer", "Binary", "Trick"].map((type) => (
-            <Card key={type} className={`category-card ${selectedQuestion && selectedQuestion.type.trim() === type.trim() ? 'active' : ''}`}>
+            <Card key={type} className={`category-card ${selectedQuestion && selectedQuestion.type.trim() === type ? 'active' : ''}`}>
               <CardContent>
                 <Typography variant="h5">{type} Questions</Typography>
                 {questionsList

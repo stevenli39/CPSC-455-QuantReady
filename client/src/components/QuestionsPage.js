@@ -18,7 +18,6 @@ import MCQQuestion from "./MCQQuestion";
 import NumericQuestion from "./NumericQuestion";
 import ShortAnswerQuestion from "./ShortAnswerQuestion";
 import TrickQuestion from "./TrickQuestion";
-import { makeStyles } from '@mui/styles';
 import CommentSection from "./CommentSection";
 
 import { updateUser } from "../redux/actions/authActions";
@@ -116,7 +115,7 @@ function QuestionsList() {
         <div className="categories-container">
           {/* Render sections for each type */}
           {["Numeric", "MCQ", "Short-Answer", "Binary", "Trick"].map((type) => (
-            <Card key={type} className={`category-card ${selectedQuestion && selectedQuestion.type.trim() === type ? 'active' : ''}`}>
+            <Card key={type} className={`category-card ${selectedQuestion && selectedQuestion.type.trim() === type.trim() ? 'active' : ''}`}>
               <CardContent>
                 <Typography variant="h5">{type} Questions</Typography>
                 {questionsList

@@ -93,9 +93,9 @@ export default function QuestionHistory(){
                       <Typography variant="body1">
                         Level of Difficulty: {displayStatus.levelOfDifficulty}
                       </Typography>
-                      <Typography variant="body1">
+                      {/* <Typography variant="body1">
                         Role Type: {displayStatus.RoleType}
-                      </Typography>
+                      </Typography> */}
                       <Typography variant="body1">
                         Description: {displayStatus.description}
                       </Typography>

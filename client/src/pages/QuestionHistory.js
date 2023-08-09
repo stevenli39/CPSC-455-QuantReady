@@ -54,7 +54,7 @@ export default function QuestionHistory(){
   
     const [displayStatus, setDisplayStatus] = useState({name: '', description: '', type: "", levelOfDifficulty: ""})
 
-    if (isLoggedIn) {
+    // if (isLoggedIn) {
       return(
         <div>
           <h1>
@@ -115,12 +115,12 @@ export default function QuestionHistory(){
           </div>
       </div>
     )
-  } else {
-    return (
-      // center this component on the page
-      <h1>
-        Please log in to view your question history
-      </h1>
-    );
-  }
+  // } else {
+  //   return (
+  //     // center this component on the page
+  //     <h1>
+  //       Please log in to view your question history
+  //     </h1>
+  //   );
+  // }
 }

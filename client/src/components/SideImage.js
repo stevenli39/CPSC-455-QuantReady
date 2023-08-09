@@ -1,5 +1,5 @@
 import React from 'react';
-import image1 from '../images/image1.png'; 
+import image1 from '../images/image1.png';
 import '../styles/SideImage.css';
 
 function SideImage() {

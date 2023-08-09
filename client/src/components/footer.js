@@ -59,7 +59,7 @@ function Footer() {
       </Grid>
       
       <Typography variant="body2" sx={{ marginTop: '1rem' }}>
-        &copy; {new Date().getFullYear()} QunatRready. All rights reserved.
+        &copy; {new Date().getFullYear()} QuantReady. All rights reserved.
       </Typography>
     </Box>
   );

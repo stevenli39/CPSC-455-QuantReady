@@ -43,13 +43,6 @@ function Nav() {
     <AppBar position="sticky" className="navbar">
       <Container maxWidth="xl" className="navbar-container">
         <Toolbar disableGutters className="toolbar">
-          <Box className="logo-container">
-            <img
-              src={Logo2}
-              alt="QuantReady Logo"
-              className="logo"
-            />
-          </Box>
 
           <Box className="menuItems">
            

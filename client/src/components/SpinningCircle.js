@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import '../styles/SpinningCircle.css';
-import image1 from '../images/image1.png';
 
 function SpinningCircle() {
   return (
@@ -11,13 +10,21 @@ function SpinningCircle() {
           variant="outlined"
           color="primary"
           size="large"
-          style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' , 
-          borderColor: 'navy', color: 'navy', borderRadius: '20px', width: '200px', height: '50px'}}
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            borderColor: 'navy',
+            color: 'navy',
+            borderRadius: '20px',
+            width: '200px',
+            height: '50px'
+          }}
         >
           Get Started
         </Button>
       </div>
-      
     </div>
   );
 }

@@ -18,27 +18,57 @@
     animation: fade-in 1s ease forwards;
   }
 
-  @keyframes slide-in {
-  from {
-    opacity: 0;
-    transform: translateX(-100%);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.slide {
-  animation: slide-in 1s ease forwards;
-}
-
-@keyframes example {
-    from {
-      transform: translateY(0);
+  @media (max-width: 1200px) {
+    .navy-banner {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto 4rem auto; /* Adjust margin for spacing between banners */
+      padding: 2rem;
+      border-radius: 15px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    to {
-      transform: translateY(20px);
-    }
-  }
   
+    .navy-banner .MuiCardMedia-root {
+      width: 180px; /* Adjust image width for smaller screens */
+      margin: 1rem 0;
+    }
+  
+    .navy-banner-content {
+      margin: 1rem;
+    }
+
+    .navy-banner.banner2 {
+      left: auto;
+      right: auto;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .side-image-container {
+      position: relative;
+      margin: 0 auto 2rem auto; /* Center the container horizontally and adjust margin */
+      width: 100%;
+    }
+  
+    .spinning-circle-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      height: auto; /* Allow the height to adjust based on content */
+      animation: spin 10s linear infinite;
+      margin: 2rem auto; /* Center the container horizontally and adjust margin */
+    }
+  }
+
+
+
+
+
+
+

@@ -14,7 +14,6 @@ export default function QuestionHistory(){
   const isLoggedIn = (loginState && loginState.user);
   const questionsHistory = isLoggedIn ? loginState.user.questionHistory : [];
   
-  // define score stores
   let scoreNumeric= 0;
   let scoreMCQ= 0;
   let scoreSA = 0; 
@@ -56,17 +55,20 @@ export default function QuestionHistory(){
 
     if (isLoggedIn) {
       return(
-        <div>
-          <h1>
-              Questions History
-          </h1>
+        <div className="questionsPage">
+          <Card className="header" style={{ backgroundColor: 'navy' }}>
+            <CardContent>
+              <Typography variant="h2" component="h1" sx={{ color: 'white', marginBottom: '1rem' }}>
+                Your Progress
+              </Typography>
+            </CardContent>
+          </Card>
           <div className="page">
-            <div className="pageLeft">
-              <Card className = 'questionsList'>
+              <Card className = 'questionsList' style={{ backgroundColor: '#f1efe9' }}>
                   <CardContent>
-                      <p>
-                          Recent History:
-                      </p>
+                    <Typography variant="h6" sx={{ color: 'navy', marginBottom: '1rem' }}>
+                      Recent History:
+                    </Typography>
                       <ol>
                           {questionsHistory.map((question) => (
                               <li key={question.name} onClick={() => setDisplayStatus(question)}>
@@ -76,48 +78,48 @@ export default function QuestionHistory(){
                       </ol>
                   </CardContent>
               </Card>
-                <Card>
-                  <CardContent>
+              <Card style={{ backgroundColor: '#f1efe9' }}>
+                  <CardContent> 
+                    <Typography variant="h6" sx={{ color: 'navy', marginBottom: '1rem' }}>
+                      Question Details:
+                    </Typography>
                     <div >
                       <Typography variant="body1">
                         Question Name: {displayStatus.name}
                       </Typography>
                       <Typography variant="body1">
-                        Role Type: {displayStatus.type}
+                        Question Type: {displayStatus.type}
                       </Typography>
                       <Typography variant="body1">
                         Level of Difficulty: {displayStatus.levelOfDifficulty}
                       </Typography>
+                      {/* <Typography variant="body1">
+                        Role Type: {displayStatus.RoleType}
+                      </Typography> */}
                       <Typography variant="body1">
                         Description: {displayStatus.description}
                       </Typography>
                     </div>
-                    <p>
+                    <h5>
                       Click on a question to view its details
-                    </p>
+                    </h5>
                   </CardContent>
               </Card>
-            </div>
-            <div className="pageRight">
-              <Card className="graphs">
+              <Card className="graphs" style={{ backgroundColor: '#f1efe9' }}>
                   <CardContent>
-                    <Typography>Type:</Typography>
-                    <br></br>
+                    <Typography variant = "h6" sx={{ color: 'navy', marginBottom: '1rem' }}>Your progress on question types:</Typography>
                       <BarGraph data = {dataType}/>
                   </CardContent>
                   <CardContent>
-                  <Typography>Difficulty:</Typography>
-                    <br></br>
+                  <Typography variant = "h6" sx={{ color: 'navy', marginBottom: '1rem' }}>Your progress on question difficulty:</Typography>
                       <BarGraph data = {dataDifficulty}/>
                   </CardContent>
-              </Card>
-            </div>
+              </Card>           
           </div>
       </div>
     )
   } else {
     return (
-      // center this component on the page
       <h1>
         Please log in to view your question history
       </h1>

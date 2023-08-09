@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import {
   Avatar,
-  Button,
   Card,
   CardContent,
   CardHeader,
@@ -53,20 +52,6 @@ const ActionsContainer = styled('div')(({ theme }) => ({
   marginTop: theme.spacing(2),
 }));
 
-{ /* For later implementation */ }
-// const ChooseFileButton = styled('label')(({ theme }) => ({
-//   display: 'inline-block',
-//   padding: theme.spacing(1),
-//   backgroundColor: 'black',
-//   color: 'white',
-//   borderRadius: theme.shape.borderRadius,
-//   cursor: 'pointer',
-//   transition: 'background-color 0.3s',
-//   '&:hover': {
-//     backgroundColor: 'rgba(0, 0, 0, 0.8)',
-//   },
-// }));
-
 const ProfilePage = () => {
   const loginState = useSelector(state => state.auth);
   const isLoggedIn = (loginState && loginState.user);
@@ -112,13 +97,6 @@ const ProfilePage = () => {
     setIsEditing(false);
     dispatch(updateUser(user._id, {...user, firstName, lastName, email, role}));
   };
-
-  { /* For later implementation */ }
-  // const handleImageUpload = (event) => {
-  //   const file = event.target.files[0];
-  //   // Perform actions like uploading the image to the server and updating the image state here
-  //   setImage(URL.createObjectURL(file));
-  // };
 
   if (isLoggedIn) {
     return (
@@ -176,16 +154,6 @@ const ProfilePage = () => {
                     )}
                   </ActionsContainer>
                 </StyledForm>
-                { /* For later implementation */ }
-                {/* <ChooseFileButton>
-                  Upload Image
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    style={{ display: 'none' }}
-                  />
-                </ChooseFileButton> */}
               </CardContent>
             </Card>
           </InfoContainer>

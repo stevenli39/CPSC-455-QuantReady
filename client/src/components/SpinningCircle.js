@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import '../styles/SpinningCircle.css';
-import image1 from '../images/image1.png';
 
 function SpinningCircle() {
   return (

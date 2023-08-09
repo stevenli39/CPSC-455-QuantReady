@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "../styles/questionsList.css";
-import { Search } from "@mui/icons-material";
 import {
   TextField,
   Card,
@@ -8,10 +7,8 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import Scratchpad from "./Scratchpad";
 import { fetchQuestions } from "../api/questions";
 import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import BinaryQuestion from "./BinaryQuestion";
 import MCQQuestion from "./MCQQuestion";
@@ -26,40 +23,18 @@ import { updateUser } from "../redux/actions/authActions";
 function QuestionsList() {
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [questionsList, setQuestionsList] = useState([]);
-  const [filterName, setFilterName] = useState("");
   const [answer, setAnswer] = useState("");
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
-  const questionsByType = {
-    "Numeric": [],
-    "MCQ": [],
-    "Short-Answer": [],
-    "Binary": [],
-    "Trick": [],
-  };
-
   const loginState = useSelector(state => state.auth);
   const isLoggedIn = (loginState && loginState.user);
   const user = isLoggedIn ? loginState.user : null;
   const dispatch = useDispatch();
-  const handleFilterChange = (e) => {
-    setFilterName(e.target.value);
-  };
-
-  const handleFilterBlur = () => {
-    setFilterName("");
-  };
 
   const handleQuestionClick = (question) => {
     setSelectedQuestion(question);
     setShowCorrectAnswer(false);
     setAnswer("");
   };
-
-  const filteredQuestions = filterName
-    ? questionsList.filter((question) =>
-        question.name.toLowerCase().includes(filterName.toLowerCase())
-      )
-    : questionsList;
 
   useEffect(() => {
     const fetchData = async () => {

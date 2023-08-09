@@ -7,6 +7,7 @@ const questionSchema = new Schema({
     levelOfDifficulty: String,
     name: String,
     correctAnswer: String,
+    RoleType: String
 });
 
 mongoose.model('questions', questionSchema);

@@ -6,7 +6,7 @@ function NumericQuestion({ selectedQuestion }) {
 
   const handleAnswerChange = (event) => {
     // Remove any non-numeric characters from the input value
-    const numericValue = event.target.value.replace(/\D/, "");
+    const numericValue = event.target.value.replace(/[^\d.]/g, "");
     setAnswer(numericValue);
   };
 

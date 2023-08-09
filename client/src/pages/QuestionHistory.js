@@ -14,7 +14,6 @@ export default function QuestionHistory(){
   const isLoggedIn = (loginState && loginState.user);
   const questionsHistory = isLoggedIn ? loginState.user.questionHistory : [];
   
-  // define score stores
   let scoreNumeric= 0;
   let scoreMCQ= 0;
   let scoreSA = 0; 
@@ -117,7 +116,6 @@ export default function QuestionHistory(){
     )
   } else {
     return (
-      // center this component on the page
       <h1>
         Please log in to view your question history
       </h1>

@@ -59,12 +59,14 @@
   &:hover .MuiTouchRipple-root {
     display: none !important;
   }
+
 }
 
 @media (max-width: 1200px) {
   .navbar {
     flex-direction: column;
     height: auto;
+
   }
 
   .menuItems {
@@ -83,7 +85,7 @@
     margin-top: 1rem;
   }
   .logo{
-    margin-left: 0rem;
+    margin-left: 2rem;
   }
 }
 

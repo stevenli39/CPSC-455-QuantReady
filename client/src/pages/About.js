@@ -55,7 +55,7 @@ function AboutUsPage() {
                   <CardContent>
                     <Typography variant="h6">Angad Sudarsan</Typography>
                     <Typography variant="body2">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Angad is a final year Business and Computer Science student. He enjoys bringing diverse perspectives together to identify creative avenues for growth. He is interested in creating tools that make a quality education more accessible and looks forward to working further on the QuantReady project
                     </Typography>
                   </CardContent>
                 </Card>
@@ -74,7 +74,7 @@ function AboutUsPage() {
                   <CardContent>
                     <Typography variant="h6">Annie Liu</Typography>
                     <Typography variant="body2">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Annie is a senior year business and computer science student studying at UBC.She is intrigued by the possibilities bridged by finance and computer science.
                     </Typography>
                   </CardContent>
                 </Card>

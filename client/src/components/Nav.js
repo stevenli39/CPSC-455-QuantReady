@@ -12,8 +12,6 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from '../redux/actions/authActions';
-import Logo2 from '../images/Logo2.png';
-import Logo3 from '../images/Logo3.png';
 import '../styles/nav.css';
 
 function Nav() {
@@ -44,15 +42,6 @@ function Nav() {
     <AppBar position="sticky" className="navbar">
       <Container maxWidth="xl" className="navbar-container">
         <Toolbar disableGutters className="toolbar">
-          <Box className="logo-container">
-          <Link to="/" className="logo-link">
-            <img
-              src={Logo3}
-              alt="QuantReady Logo"
-              className="logo"
-            />
-            </Link>
-          </Box>
 
           <Box className="menuItems">
            

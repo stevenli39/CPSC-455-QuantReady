@@ -1,5 +1,7 @@
 # https://quantready455.com/
 
+# Definitions Page is still under construction: https://docs.google.com/document/d/1kVRQsiFZOgdsJ2s3lP6Y9rHdkdtSc79UYWn2BaY2TGs/edit?usp=sharing
+
 # QuantReady
 QuantReady is an interview preparation platform designed to help students excel in quantitative finance interviews. It offers a range of features and resources to enhance users' preparation and performance. The platform includes question banks, user profiles to track progress and an interactive comment feature for students to discuss their thoughts and solutions.
 
